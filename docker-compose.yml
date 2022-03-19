@@ -18,6 +18,7 @@ services:
   api:
     container_name: ${BASE_NAME}_${DOCKER_ENV}_api
     environment:
+      VERSION: 0.0.1-SNAPSHOT
       DOCKER_ENV: ${DOCKER_ENV}
       SERVICE_MODE: ${SERVICE_MODE}
     logging:

@@ -1,0 +1,36 @@
+FROM eclipse-temurin:11
+WORKDIR /app
+
+ARG DOCKER_USER=www-data \
+    DOCKER_GROUP=www-data \
+    VERSION
+
+RUN test -n "$VERSION"
+
+RUN mkdir -p /app && \
+    mkdir -p app/log && \
+    mkdir -p app/tmp
+
+ENV EDITOR=vim
+
+####################
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends grep less vim
+
+####################
+COPY build/libs/rock-$VERSION.jar rock-api.jar
+COPY docker docker
+
+####################
+RUN echo "useradd -m ${DOCKER_USER}:${DOCKER_GROUP}"
+
+# NOTE KI Permissions WILL be applied to mounted volumes
+RUN chown -R ${DOCKER_USER}:${DOCKER_GROUP} /app
+
+USER ${DOCKER_USER}:${DOCKER_GROUP}
+
+####################
+EXPOSE 8080
+EXPOSE 8000
+
+ENTRYPOINT ["docker/docker-entrypoint-production.sh"]

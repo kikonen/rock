@@ -6,7 +6,7 @@ services:
     restart: always
 
   api:
-    image: docker.ikari.fi/rock_build_api:${BUILD_TAG}
+    image: ${DOCKER_REGISTRY_URL}/rock_build_api:${BUILD_TAG}
     env_file:
       - .env
       - .production_env
@@ -15,7 +15,7 @@ services:
     restart: always
 
   ui:
-    image: docker.ikari.fi/rock_build_ui:${BUILD_TAG}
+    image: ${DOCKER_REGISTRY_URL}/rock_build_ui:${BUILD_TAG}
     env_file:
       - .env
       - .production_env

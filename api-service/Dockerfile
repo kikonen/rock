@@ -33,5 +33,6 @@ USER ${DOCKER_UID}:${DOCKER_GID}
 
 ####################
 EXPOSE 8080
+EXPOSE 8000
 
 ENTRYPOINT ["docker/docker-entrypoint.sh"]

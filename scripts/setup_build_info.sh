@@ -3,6 +3,10 @@
 export DOCKER_ENV=build
 . $(realpath $(dirname $0))/base_env.sh
 
+if [[ ! -d $PROJECTS_DIR ]]; then
+    exit
+fi
+
 REPOS=$(ls $PROJECTS_DIR)
 
 # NOTE KI https://stackoverflow.com/questions/35385962/arrays-in-a-posix-compliant-shell

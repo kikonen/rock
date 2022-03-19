@@ -1,1 +1,2 @@
 BASE_NAME=rock
+DOCKER_REGISTRY_URL=docker.ikari.fi

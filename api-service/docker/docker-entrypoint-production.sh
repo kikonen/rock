@@ -10,7 +10,7 @@ fi
 
 if [[ "$SERVICE_MODE" == "debug" ]]; then
     java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n \
-         -jar build/libs/rock-$VERSION.jar
+         -jar rock-api.jar
 else
-    java -jar build/libs/rock-$VERSION.jar
+    java -jar rock-api.jar
 fi
