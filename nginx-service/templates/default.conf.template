@@ -1,0 +1,66 @@
+server {
+    listen 8080;
+    server_name demo;
+
+    # https://stackoverflow.com/questions/28028789/nginx-proxy-pass-to-a-linked-docker-container
+    resolver 127.0.0.11 valid=30s;
+
+    location / {
+        if ($http_x_forwarded_proto = "https") {
+            return 302 https://$http_x_forwarded_host:$http_x_forwarded_port/ui;
+        }
+        if ($http_x_forwarded_proto != "https") {
+            # TODO KI https://linuxhint.com/nginx-use-environment-variables/
+            return 302 $scheme://$host:${NGINX_PORT}/ui;
+        }
+    }
+
+    location ~ ^/api/?(.*)$ {
+        set $upstream_api api;
+
+        proxy_pass http://$upstream_api:8080/$1$is_args$args;
+    }
+
+    location /ui {
+        set $upstream_ui ui;
+
+        set $docker_env "${DOCKER_ENV}";
+
+        set $sl_ui $host;
+        set $sl_proto $scheme;
+        set $sl_port $server_port;
+
+        if ($http_x_forwarded_proto = "https") {
+            set $sl_host $http_x_forwarded_host;
+            set $sl_proto $http_x_forwarded_proto;
+            set $sl_port $http_x_forwarded_port;
+        }
+
+        proxy_read_timeout 3600;
+        proxy_connect_timeout 600;
+        proxy_send_timeout 600;
+
+        client_max_body_size 100M;
+
+        proxy_set_header Host              $sl_host;
+        proxy_set_header X-Forwarded-Proto $sl_proto;
+        proxy_set_header X-Forwarded-Host  $sl_host;
+        proxy_set_header X-Forwarded-Port  $sl_port;
+
+        proxy_set_header X-Real-IP         $remote_addr;
+        #proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        # https://stackoverflow.com/questions/29279084/nginx-proxy-add-x-forwarded-for-and-real-ip-header
+        proxy_set_header X-Forwarded-For "$http_x_forwarded_for, $realip_remote_addr";
+
+        rewrite ^\/ui/?(.*)$ /$1 break;
+
+        # https://tarunlalwani.com/post/nginx-proxypass-server-paths/
+        proxy_pass http://$upstream_ui:8080;
+    }
+
+    location ~ ^/adminer/?(.*)$ {
+        set $upstream_adminer adminer;
+
+        proxy_pass http://$upstream_adminer:8080/$1$is_args$args;
+    }
+}

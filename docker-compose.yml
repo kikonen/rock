@@ -16,7 +16,7 @@ services:
     command: ['nginx', '-g', 'daemon off;']
 
   api:
-    container_name: ${BASE_NAME}_${DOCKER_ENV}_host
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_api
     environment:
       DOCKER_ENV: ${DOCKER_ENV}
       SERVICE_MODE: ${SERVICE_MODE}
@@ -24,17 +24,37 @@ services:
       options:
         max-size: "1m"
         max-file: "2"
-    working_dir: /app
     labels:
       ports: "3000"
     networks:
       - backend
     volumes:
-    - host_log:/app/log
-    - host_tmp:/app/tmp
+    - api_log:/app/log
+    - api_tmp:/app/tmp
     depends_on:
       - db
       - nginx
+
+  ui:
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_ui
+    environment:
+      DOCKER_ENV: ${DOCKER_ENV}
+      SERVICE_MODE: ${SERVICE_MODE}
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
+    labels:
+      ports: "3000"
+    networks:
+      - backend
+    volumes:
+    - ui_log:/app/log
+    - ui_tmp:/app/tmp
+    depends_on:
+      - db
+      - nginx
+      - api
 
   db:
     container_name: ${BASE_NAME}_${DOCKER_ENV}_db
@@ -75,6 +95,8 @@ networks:
   backend:
 
 volumes:
+  api_log:
+  api_tmp:
+  ui_log:
+  ui_tmp:
   postgres_data:
-  host_log:
-  host_tmp:

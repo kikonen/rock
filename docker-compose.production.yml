@@ -1,0 +1,44 @@
+services:
+  nginx:
+    env_file:
+      - .env
+      - .production_env
+    restart: always
+
+  api:
+    image: docker.ikari.fi/rock_build_api:${BUILD_TAG}
+    env_file:
+      - .env
+      - .production_env
+    environment:
+      CONTAINER_VERSION: ${BUILD_TAG}
+    restart: always
+
+  ui:
+    image: docker.ikari.fi/rock_build_ui:${BUILD_TAG}
+    env_file:
+      - .env
+      - .production_env
+    environment:
+      CONTAINER_VERSION: ${BUILD_TAG}
+    restart: always
+
+  db:
+    env_file:
+      - .env
+      - .production_env
+    secrets:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+    restart: always
+
+  adminer:
+    env_file:
+      - .env
+      - .production_env
+
+secrets:
+  POSTGRES_PASSWORD:
+    file: .production_secrets/POSTGRES_PASSWORD
+  POSTGRES_USER:
+    file: .production_secrets/POSTGRES_USER

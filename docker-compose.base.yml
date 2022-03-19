@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  nginx:
+    container_name: rock_base_nginx
+
+  api:
+    container_name: rock_base_api
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile.base
+
+  api:
+    container_name: rock_base_ui
+    build:
+      context: ./ui-service
+      dockerfile: Dockerfile.base
+
+  db:
+    container_name: rock_base_db
+
+  adminer:
+    container_name: rock_base_adminer

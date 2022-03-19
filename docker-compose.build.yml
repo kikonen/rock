@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  nginx:
+    env_file:
+      - .env
+      - .build_env
+
+  api:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+
+  ui:
+    build:
+      context: ./ui-service
+      dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+
+  db:
+    env_file:
+      - .env
+      - .build_env
+
+  adminer:
+    env_file:
+      - .env
+      - .build_env
