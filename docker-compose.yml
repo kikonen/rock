@@ -1,0 +1,80 @@
+version: '3.3'
+
+services:
+  nginx:
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_nginx
+    image: nginx:1.19.9
+    environment:
+      DOCKER_ENV: ${DOCKER_ENV}
+    volumes:
+     - ./nginx-service/templates:/etc/nginx/templates
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "127.0.0.1:${NGINX_PORT}:8080"
+    command: ['nginx', '-g', 'daemon off;']
+
+  api:
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_host
+    environment:
+      DOCKER_ENV: ${DOCKER_ENV}
+      SERVICE_MODE: ${SERVICE_MODE}
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
+    working_dir: /app
+    labels:
+      ports: "3000"
+    networks:
+      - backend
+    volumes:
+    - host_log:/app/log
+    - host_tmp:/app/tmp
+    depends_on:
+      - db
+      - nginx
+
+  db:
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_db
+    image: postgres:13.2
+    environment:
+      PGDATA: /data/db
+      POSTGRES_PASSWORD_FILE: /var/run/secrets/POSTGRES_PASSWORD
+      POSTGRES_USER_FILE: /var/run/secrets/POSTGRES_USER
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
+    labels:
+      ports: "5432"
+    networks:
+      - backend
+    volumes:
+    - postgres_data:/data
+
+  adminer:
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_adminer
+    image: adminer
+    profiles: ["development"]
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
+    labels:
+      ports: "8080"
+    networks:
+      - backend
+    depends_on:
+      - db
+      - nginx
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  postgres_data:
+  host_log:
+  host_tmp:
