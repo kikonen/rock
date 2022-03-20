@@ -41,6 +41,7 @@ services:
     environment:
       DOCKER_ENV: ${DOCKER_ENV}
       SERVICE_MODE: ${SERVICE_MODE}
+      PUBLIC_URL: /ui
     logging:
       options:
         max-size: "1m"
