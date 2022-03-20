@@ -20,6 +20,8 @@ services:
     build:
       context: ./ui-service
       dockerfile: Dockerfile.build
+      args:
+        PUBLIC_URL: /ui
     env_file:
       - .env
       - .build_env

@@ -6,6 +6,9 @@ ARG DOCKER_USER=docker \
     DOCKER_UID \
     DOCKER_GID
 
+RUN test -n "$DOCKER_UID" && \
+    test -n "$DOCKER_GID"
+
 ENV NODE_PATH=/node_modules \
     PATH=$PATH:/app/bin:/node_modules/.bin \
     EDITOR=vim

@@ -9,11 +9,11 @@ ARG DOCKER_USER=docker \
 RUN test -n "$DOCKER_UID" && \
     test -n "$DOCKER_GID"
 
+ENV EDITOR=vim
+
 RUN mkdir -p /app && \
     mkdir -p app/log && \
     mkdir -p app/tmp
-
-ENV EDITOR=vim
 
 ####################
 RUN apt-get update && \

@@ -70,16 +70,16 @@ server {
         # https://stackoverflow.com/questions/29279084/nginx-proxy-add-x-forwarded-for-and-real-ip-header
         proxy_set_header X-Forwarded-For "$http_x_forwarded_for, $realip_remote_addr";
 
-        if ($http_x_forwarded_proto = "https") {
+        if ($docker_env = "production") {
             # NOTE KI discard /ui for production
             rewrite ^\/ui/?(.*)$ /$1 break;
-            proxy_pass http://$upstream_ui:3000;
+            proxy_pass http://$upstream_ui:${UI_SERVICE_PORT};
         }
 
-        if ($http_x_forwarded_proto != "https") {
+        if ($docker_env = "development") {
             # NOTE KI PASS /ui for dev
             # https://tarunlalwani.com/post/nginx-proxypass-server-paths/
-            proxy_pass http://$upstream_ui:3000;
+            proxy_pass http://$upstream_ui:${UI_SERVICE_PORT};
         }
     }
 
