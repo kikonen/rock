@@ -1,2 +1,4 @@
 BASE_NAME=rock
+BUILD_NAME=rock
+BUILD_IMAGES="api"
 DOCKER_REGISTRY_URL=docker.ikari.fi
