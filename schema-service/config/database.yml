@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV.fetch("DB_HOST") %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  database: <%= "#{ENV['DB_PREFIX']}#{ENV['DB_NAME']}" %>
+  username: <%= File.read("/var/run/secrets/POSTGRES_USER").chomp %>
+  password: <%= File.read("/var/run/secrets/POSTGRES_PASSWORD").chomp %>
+
+development:
+  <<: *default
+
+production:
+  <<: *default

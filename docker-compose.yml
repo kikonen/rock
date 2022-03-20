@@ -76,10 +76,24 @@ services:
     volumes:
     - postgres_data:/data
 
+  schema:
+    container_name: ${BASE_NAME}_${DOCKER_ENV}_schema
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
+    working_dir: /app
+    volumes:
+    - schema_log:/app/log
+    - schema_tmp:/app/tmp
+    networks:
+      - backend
+    depends_on:
+      - db
+
   adminer:
     container_name: ${BASE_NAME}_${DOCKER_ENV}_adminer
     image: adminer
-    profiles: ["development"]
     logging:
       options:
         max-size: "1m"
@@ -102,3 +116,5 @@ volumes:
   ui_log:
   ui_tmp:
   postgres_data:
+  schema_log:
+  schema_tmp:
