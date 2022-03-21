@@ -17,7 +17,7 @@ public class MessageController {
     private final AtomicLong counter = new AtomicLong();
 
     @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
+    @SendTo("/topic/messages")
     public Greeting greeting(HelloMessage message) throws Exception {
         // simulated delay
         Thread.sleep(1000);

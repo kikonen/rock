@@ -1,10 +1,11 @@
 import React from 'react';
+import {Client} from "@stomp/stompjs";
+
 import logo from './logo.svg';
 import './App.css';
 
 import Emitter from './Emitter';
 import autobind from './autobind'
-import Stomp from '@stomp/stompjs';
 
 type AppState = {
   userName: String,
@@ -28,6 +29,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   componentDidMount() {
+    this.subscribeTopics();
     this.fetchUserInfo();
   }
 
@@ -43,23 +45,55 @@ class App extends React.Component<{}, AppState> {
       message: rs.message,
     }),
     fn);
-
-    this.subscribeTopics();
   }
 
   subscribeTopics() {
-/*
-    let url = 'ws://api/rock-websocket';
-    let stompClient = Stomp.client(url);
-    stompClient.connect({}, function (frame: any) {
-//      setConnected(true);
-      console.log('Connected: ' + frame);
-      stompClient.subscribe('/topic/greetings', function (greeting: any) {
-        //showGreeting(JSON.parse(greeting.body).content);
-        console.log(greeting);
-      });
+    let stompClient = new Client();
+    let app_key = 'todo';
+    let app_token = 'todo';
+
+    stompClient.configure({
+      brokerURL: 'ws://localhost:8111/api/rock-websocket',
+      connectHeaders: {
+        login: 'guest',
+        passcode: 'guest',
+        accessToken: app_token,
+        appKey: app_key,
+      },
+      reconnectDelay: 2000,
+      heartbeatIncoming: 0,
+      heartbeatOutgoing: 20000,
+      onConnect: () => {
+        console.log("On connect");
+        stompClient.subscribe('/topic/messages', (message) => {
+          console.log("message");
+          console.log("Connected", "Connected");
+        }, {appKey: app_key});
+
+        stompClient.publish({
+          destination: "/app/hello",
+          headers: { priority: '9' },
+          body: '"STOMP"' });
+      },
+      onStompError: (frame) => {
+        console.log('Broker reported error: ' + frame.headers['message']);
+        console.log('Additional details: ' + frame.body);
+      },
+      onDisconnect: (frame) => {
+        console.log("Stomp Disconnect", frame);
+      },
+      onWebSocketClose: (frame) => {
+        console.log("Stomp WebSocket Closed", frame);
+      },
+      debug: (str) => {
+        console.log(new Date(), str);
+      },
+      onUnhandledMessage: (msg) => {
+        console.log(msg);
+      }
     });
-*/
+
+    stompClient.activate();
   }
 
   startGame() {

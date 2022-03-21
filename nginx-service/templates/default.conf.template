@@ -15,7 +15,28 @@ server {
         }
     }
 
-    location ~ ^/api/?(.*)$ {
+    location /api/rock-websocket {
+        access_log off;
+
+        set $upstream_api api;
+
+        proxy_read_timeout 3600;
+
+        # https://tarunlalwani.com/post/nginx-proxypass-server-paths/
+        proxy_pass http://$upstream_api:8080/rock-websocket;
+
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+
+        proxy_redirect off;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+
+    location ~ ^/api2/?(.*)$ {
         set $upstream_api api;
 
         proxy_pass http://$upstream_api:8080/$1$is_args$args;
@@ -32,7 +53,7 @@ server {
 
         # NOTE KI PASS /ui for dev
         # https://tarunlalwani.com/post/nginx-proxypass-server-paths/
-        proxy_pass http://$upstream_ui:${UI_SERVICE_PORT};
+        proxy_pass http://$upstream_ui:${UI_SERVICE_PORT}/sockjs-node;
 
         proxy_redirect off;
 
