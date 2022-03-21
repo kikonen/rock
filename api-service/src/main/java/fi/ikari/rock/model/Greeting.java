@@ -1,4 +1,4 @@
-package fi.ikari.rock;
+package fi.ikari.rock.model;
 
 
 public class Greeting {

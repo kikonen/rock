@@ -5,5 +5,10 @@ if [[ $1 != '' ]]; then
     exit $?
 fi
 
-yarn install
-yarn run start
+if [[ "$SERVICE_MODE" == "debug" ]]; then
+    echo "SERVICE_MODE: $SERVICE_MODE"
+    sleep infinity
+else
+    yarn install
+    yarn run start
+fi

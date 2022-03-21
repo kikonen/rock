@@ -4,11 +4,13 @@ import './App.css';
 
 import Emitter from './Emitter';
 import autobind from './autobind'
+import Stomp from '@stomp/stompjs';
 
 type AppState = {
   userName: String,
   userInfo: any,
   message: String,
+  event: String,
 };
 
 class App extends React.Component<{}, AppState> {
@@ -18,7 +20,8 @@ class App extends React.Component<{}, AppState> {
     this.state = {
       userName: 'React',
       userInfo: { name: 'Not logged in', id: null, valid: false },
-      message: null,
+      message: '',
+      event: '',
     };
 
     autobind(this);
@@ -40,6 +43,23 @@ class App extends React.Component<{}, AppState> {
       message: rs.message,
     }),
     fn);
+
+    this.subscribeTopics();
+  }
+
+  subscribeTopics() {
+/*
+    let url = 'ws://api/rock-websocket';
+    let stompClient = Stomp.client(url);
+    stompClient.connect({}, function (frame: any) {
+//      setConnected(true);
+      console.log('Connected: ' + frame);
+      stompClient.subscribe('/topic/greetings', function (greeting: any) {
+        //showGreeting(JSON.parse(greeting.body).content);
+        console.log(greeting);
+      });
+    });
+*/
   }
 
   startGame() {
@@ -50,6 +70,9 @@ class App extends React.Component<{}, AppState> {
       <div className="App">
         <div>
           {this.state.message}
+        </div>
+        <div>
+          {this.state.event}
         </div>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />

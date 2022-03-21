@@ -7,4 +7,4 @@ SERVICE_MODE=debug $DOCKER_COMPOSE up -d $CONTAINER
 
 shift
 $DOCKER_COMPOSE exec $CONTAINER bash -c "yarn install"
-$DOCKER_COMPOSE exec $CONTAINER yarn run start
+$DOCKER_COMPOSE exec $CONTAINER bash -c "yarn run start"
