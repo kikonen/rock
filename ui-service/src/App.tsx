@@ -8,6 +8,7 @@ import autobind from './autobind'
 type AppState = {
   userName: String,
   userInfo: any,
+  message: String,
 };
 
 class App extends React.Component<{}, AppState> {
@@ -16,7 +17,8 @@ class App extends React.Component<{}, AppState> {
 
     this.state = {
       userName: 'React',
-      userInfo: { name: 'Not logged in', email: 'na', channels: [], valid: false },
+      userInfo: { name: 'Not logged in', id: null, valid: false },
+      message: null,
     };
 
     autobind(this);
@@ -29,11 +31,13 @@ class App extends React.Component<{}, AppState> {
   async fetchUserInfo() {
     const url = `../api/greeting?name=${this.state.userName}`;
     const response = await fetch(url);
+    let rs = await response.json();
+    console.log(rs);
 
     let fn = () => this.startGame();
 
     this.setState((state, props) => ({
-      userInfo: response,
+      message: rs.message,
     }),
     fn);
   }
@@ -44,6 +48,9 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <div className="App">
+        <div>
+          {this.state.message}
+        </div>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
