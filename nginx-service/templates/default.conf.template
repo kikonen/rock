@@ -22,6 +22,8 @@ server {
     }
 
     location /ui/sockjs-node {
+        set $upstream_ui ui;
+
         proxy_read_timeout 3600;
 
         proxy_set_header X-Real-IP  $remote_addr;
@@ -30,7 +32,7 @@ server {
 
         # NOTE KI PASS /ui for dev
         # https://tarunlalwani.com/post/nginx-proxypass-server-paths/
-        proxy_pass http://$upstream_ui:3000;
+        proxy_pass http://$upstream_ui:${UI_SERVICE_PORT};
 
         proxy_redirect off;
 

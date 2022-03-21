@@ -66,4 +66,6 @@ export DOCKER_GID
 export DOCKER_USER
 export DOCKER_GROUP
 
+export NGINX_PORT
+
 #$SCRIPT_DIR/setup_repositories.sh

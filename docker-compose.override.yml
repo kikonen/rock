@@ -29,6 +29,9 @@ services:
     env_file:
       - .env
       - .development_env
+    environment:
+      WDS_SOCKET_PATH: /ui/sockjs-node
+      WDS_SOCKET_PORT: ${NGINX_PORT}
     volumes:
       - ./ui-service:/app
 
