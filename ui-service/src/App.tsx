@@ -1,11 +1,21 @@
 import React from 'react';
 import {Client} from "@stomp/stompjs";
 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 
 import Emitter from './Emitter';
 import autobind from './autobind'
+
+import { StartPage } from './components/StartPage';
+import { AboutPage } from './components/AboutPage';
 
 type AppState = {
   userName: String,
@@ -100,29 +110,25 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
+    let baseUrl = process.env.PUBLIC_URL;
     return (
-      <div className="App">
-        <div>
-          {this.state.message}
+      <Router>
+        <div className="App">
+          <ul>
+            <li>
+              <Link to={`${baseUrl}/start`}>Start page</Link>
+            </li>
+            <li>
+              <Link to={`${baseUrl}/about`}>About Us</Link>
+            </li>
+          </ul>
+
+          <Routes>
+            <Route exact path={`${baseUrl}/start`} element={< StartPage />}></Route>
+            <Route exact path={`${baseUrl}/about`} element={< AboutPage />}></Route>
+          </Routes>
         </div>
-        <div>
-          {this.state.event}
-        </div>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-           >
-             Learn React
-           </a>
-         </header>
-       </div>
+      </Router>
     );
   }
 }
