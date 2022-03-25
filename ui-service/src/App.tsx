@@ -111,14 +111,13 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    let baseUrl = process.env.PUBLIC_URL;
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className="App">
           <Routes>
-            <Route exact path={`${baseUrl}/`} element={< HomePage />}></Route>
-            <Route exact path={`${baseUrl}/start`} element={< StartPage />}></Route>
-            <Route exact path={`${baseUrl}/about`} element={< AboutPage />}></Route>
+            <Route exact path='/' element={< HomePage />}></Route>
+            <Route exact path='/start' element={< StartPage />}></Route>
+            <Route exact path='/about' element={< AboutPage />}></Route>
           </Routes>
         </div>
       </Router>

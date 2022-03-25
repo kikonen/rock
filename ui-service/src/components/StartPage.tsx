@@ -19,14 +19,13 @@ export class StartPage extends React.Component<Props> {
   }
 
   render() {
-    let baseUrl = process.env.PUBLIC_URL;
     return (
       <div>
         <h1>Start your rocking journey</h1>
 
         <ul>
           <li>
-            <Link to={`${baseUrl}`}>Home page</Link>
+            <Link to="/">Home page</Link>
           </li>
         </ul>
       </div>
