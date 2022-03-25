@@ -15,12 +15,12 @@ server {
         }
     }
 
-    location /api/rock-websocket {
+    location ~ /api/rock-websocket.* {
         access_log off;
 
         set $upstream_api api;
 
-        proxy_read_timeout 3600;
+#        proxy_read_timeout 3600;
 
         # https://tarunlalwani.com/post/nginx-proxypass-server-paths/
         proxy_pass http://$upstream_api:8080/rock-websocket;
@@ -36,7 +36,7 @@ server {
         proxy_set_header Connection "Upgrade";
     }
 
-    location ~ ^/api2/?(.*)$ {
+    location ~ ^/api/?(.*)$ {
         set $upstream_api api;
 
         proxy_pass http://$upstream_api:8080/$1$is_args$args;
