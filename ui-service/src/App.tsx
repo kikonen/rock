@@ -14,6 +14,7 @@ import './App.css';
 import Emitter from './Emitter';
 import autobind from './autobind'
 
+import { HomePage } from './components/HomePage';
 import { StartPage } from './components/StartPage';
 import { AboutPage } from './components/AboutPage';
 
@@ -114,16 +115,8 @@ class App extends React.Component<{}, AppState> {
     return (
       <Router>
         <div className="App">
-          <ul>
-            <li>
-              <Link to={`${baseUrl}/start`}>Start page</Link>
-            </li>
-            <li>
-              <Link to={`${baseUrl}/about`}>About Us</Link>
-            </li>
-          </ul>
-
           <Routes>
+            <Route exact path={`${baseUrl}/`} element={< HomePage />}></Route>
             <Route exact path={`${baseUrl}/start`} element={< StartPage />}></Route>
             <Route exact path={`${baseUrl}/about`} element={< AboutPage />}></Route>
           </Routes>

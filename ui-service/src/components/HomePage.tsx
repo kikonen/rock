@@ -11,7 +11,7 @@ import autobind from "../autobind";
 interface Props {
 }
 
-export class StartPage extends React.Component<Props> {
+export class HomePage extends React.Component<Props> {
   constructor(props: any) {
     super(props);
 
@@ -19,14 +19,16 @@ export class StartPage extends React.Component<Props> {
   }
 
   render() {
-    let baseUrl = process.env.PUBLIC_URL;
     return (
       <div>
-        <h1>Start your rocking journey</h1>
+        <h1>Rock</h1>
 
         <ul>
           <li>
-            <Link to={`${baseUrl}`}>Home page</Link>
+            <Link to={`./start`}>Start page</Link>
+          </li>
+          <li>
+            <Link to={`./about`}>About Us</Link>
           </li>
         </ul>
       </div>

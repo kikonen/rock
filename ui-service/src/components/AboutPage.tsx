@@ -1,6 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import {
+  Link
+} from 'react-router-dom';
+
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
@@ -15,6 +19,7 @@ export class AboutPage extends React.Component<Props> {
   }
 
   render() {
+    let baseUrl = process.env.PUBLIC_URL;
     return (
       <div>
         <h2>Hello from KI-productions!</h2>
@@ -23,6 +28,12 @@ export class AboutPage extends React.Component<Props> {
         <a href="https://www.ikari.fi">
           https://www.ikari.fi/
         </a>
+
+        <ul>
+          <li>
+            <Link to={`${baseUrl}`}>Home page</Link>
+          </li>
+        </ul>
       </div>
     );
   }
