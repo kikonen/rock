@@ -115,9 +115,9 @@ class App extends React.Component<{}, AppState> {
       <Router basename={process.env.PUBLIC_URL}>
         <div className="App">
           <Routes>
-            <Route exact path='/' element={< HomePage />}></Route>
-            <Route exact path='/start' element={< StartPage />}></Route>
-            <Route exact path='/about' element={< AboutPage />}></Route>
+            <Route path='/' element={< HomePage />}></Route>
+            <Route path='/start' element={< StartPage />}></Route>
+            <Route path='/about' element={< AboutPage />}></Route>
           </Routes>
         </div>
       </Router>
