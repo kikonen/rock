@@ -3,7 +3,7 @@ class PlayerStates < ActiveRecord::Migration[7.0]
 
   def change
     create_table :player_states, id: :uuid do |t|
-      t.string :status
+      t.string :status, null: false
       t.datetime :last_ping
 
       t.timestamps default: -> { 'now()' }, null: false

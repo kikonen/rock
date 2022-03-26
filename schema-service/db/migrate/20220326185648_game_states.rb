@@ -1,7 +1,7 @@
 class GameStates < ActiveRecord::Migration[7.0]
   def change
     create_table :game_states, id: :uuid do |t|
-      t.string :status
+      t.string :status, mull: false
       t.string :hand
 
       t.timestamps default: -> { 'now()' }, null: false

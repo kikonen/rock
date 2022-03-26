@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_185648) do
   end
 
   create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "status"
+    t.string "status", null: false
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at", default: -> { "now()" }, null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_185648) do
   end
 
   create_table "player_states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "status"
+    t.string "status", null: false
     t.datetime "last_ping"
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_185648) do
   end
 
   create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", default: -> { "now()" }, null: false
     t.datetime "updated_at", default: -> { "now()" }, null: false
     t.index ["name"], name: "index_players_on_name", unique: true
