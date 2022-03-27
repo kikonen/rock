@@ -13,14 +13,15 @@ import Player from '../models/Player';
 
 
 interface Props {
+  navigate: any
 }
 
 interface State {
   players: Array<any>
 }
 
-function withNavigation(Component : Component) {
-  return props => <Component {...props} navigate={useNavigate()} />;
+function withNavigation(Component: any) {
+  return (props: any) => <Component {...props} navigate={useNavigate()} />;
 }
 
 export class PlayerListComponent extends React.Component<Props, State> {
