@@ -23,6 +23,7 @@ ENV BUNDLE_PATH=/bundle/vendor \
 
 ####################
 #COPY . .yarnrc /app/
+COPY Gemfile Gemfile.lock /app/
 
 RUN mkdir -p /node_modules
 

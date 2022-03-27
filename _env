@@ -1,6 +1,6 @@
 BASE_NAME=rock
 BUILD_NAME=rock
-BUILD_IMAGES="api ui"
+BUILD_IMAGES="api ui schema"
 DOCKER_REGISTRY_URL=docker.ikari.fi
 
 DB_HOST=db
