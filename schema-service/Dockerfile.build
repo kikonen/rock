@@ -22,7 +22,7 @@ ENV BUNDLE_PATH=/bundle/vendor \
     PATH=$PATH:/app/bin:/node_modules/.bin
 
 ####################
-COPY . .yarnrc /app/
+#COPY . .yarnrc /app/
 
 RUN mkdir -p /node_modules
 
@@ -34,7 +34,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y --no-install-recommends libpq-dev && \
     rm -rf /var/lib/apt/lists/*
 
-RUN npm install --global yarn
+#RUN npm install --global yarn
 
 #RUN yarn install
 RUN bundle config set without 'development test'

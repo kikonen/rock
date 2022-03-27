@@ -26,6 +26,14 @@ services:
       - .env
       - .build_env
 
+  schema:
+    build:
+      context: ./schema-service
+      dockerfile: Dockerfile.build
+    env_file:
+      - .env
+      - .build_env
+
   db:
     env_file:
       - .env
