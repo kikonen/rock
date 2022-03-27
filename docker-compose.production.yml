@@ -30,6 +30,9 @@ services:
       - .production_env
     environment:
       CONTAINER_VERSION: ${BUILD_TAG}
+    secrets:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
 
   db:
     env_file:
