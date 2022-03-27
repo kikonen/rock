@@ -23,6 +23,14 @@ services:
       CONTAINER_VERSION: ${BUILD_TAG}
     restart: always
 
+  schema:
+    image: ${DOCKER_REGISTRY_URL}/rock_build_schema:${BUILD_TAG}
+    env_file:
+      - .env
+      - .production_env
+    environment:
+      CONTAINER_VERSION: ${BUILD_TAG}
+
   db:
     env_file:
       - .env
