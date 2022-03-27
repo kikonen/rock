@@ -16,6 +16,9 @@ import autobind from './autobind'
 
 import { HomePage } from './components/HomePage';
 import { StartPage } from './components/StartPage';
+import { LobbyPage } from './components/LobbyPage';
+import { GamePage } from './components/GamePage';
+import { StatisticsPage } from './components/StatisticsPage';
 import { AboutPage } from './components/AboutPage';
 
 type AppState = {
@@ -117,6 +120,9 @@ class App extends React.Component<{}, AppState> {
           <Routes>
             <Route path='/' element={< HomePage />}></Route>
             <Route path='/start' element={< StartPage />}></Route>
+            <Route path='/lobby' element={< LobbyPage />}></Route>
+            <Route path='/game' element={< GamePage />}></Route>
+            <Route path='/statistics' element={< StatisticsPage />}></Route>
             <Route path='/about' element={< AboutPage />}></Route>
           </Routes>
         </div>

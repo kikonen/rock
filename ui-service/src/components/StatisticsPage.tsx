@@ -8,10 +8,12 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
+import { PlayerListComponent } from '../components/PlayerListComponent';
+
 interface Props {
 }
 
-export class HomePage extends React.Component<Props> {
+export class StatisticsPage extends React.Component<Props> {
   constructor(props: any) {
     super(props);
 
@@ -21,17 +23,16 @@ export class HomePage extends React.Component<Props> {
   render() {
     return (
       <div>
-        <h1>Rock</h1>
+        <h1>Rock of fame</h1>
+
+        <PlayerListComponent />
 
         <ul>
           <li>
-            <Link to={`./start`}>Start Rock</Link>
+            <Link to="/lobby">New rock</Link>
           </li>
           <li>
-            <Link to={`./statistics`}>Rock of fame</Link>
-          </li>
-          <li>
-            <Link to={`./about`}>About Rock</Link>
+            <Link to="/">Intro to Rock</Link>
           </li>
         </ul>
       </div>

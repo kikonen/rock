@@ -29,7 +29,13 @@ export class StartPage extends React.Component<Props> {
 
         <ul>
           <li>
-            <Link to="/">Home page</Link>
+            <Link to="/lobby">New Rock</Link>
+          </li>
+          <li>
+            <Link to={`/statistics`}>Rock of fame</Link>
+          </li>
+          <li>
+            <Link to="/">Intro to Rock</Link>
           </li>
         </ul>
       </div>
