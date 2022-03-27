@@ -2,7 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 import {
-  Link
+  Link,
+  useNavigate,
 } from 'react-router-dom';
 
 import Emitter from '../Emitter';
@@ -10,11 +11,16 @@ import autobind from "../autobind";
 
 import Player from '../models/Player';
 
+
 interface Props {
 }
 
 interface State {
   players: Array<any>
+}
+
+function withNavigation(Component : Component) {
+  return props => <Component {...props} navigate={useNavigate()} />;
 }
 
 export class PlayerListComponent extends React.Component<Props, State> {
@@ -45,13 +51,9 @@ export class PlayerListComponent extends React.Component<Props, State> {
   async onSelectPlayer(e: any, playerId: string) {
     e.preventDefault();
 
-    // const url = `../api/channels/${channelId}/actions/join`;
-    // const response = await fetch(url, { method: 'post' });
-    // let rs = await response.json();
-    // console.log("JOINED", rs);
-
-    // $('#channel_selector_dialog').modal('hide');
-    // Emitter.emit('user.refresh.channels');
+    console.log("select player: " + playerId);
+    console.log(this.props);
+    this.props.navigate('/game');
   }
 
   render() {
@@ -69,3 +71,5 @@ export class PlayerListComponent extends React.Component<Props, State> {
     );
   }
 }
+
+export default withNavigation(PlayerListComponent);

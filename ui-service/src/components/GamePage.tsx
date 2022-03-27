@@ -8,7 +8,7 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import { PlayerListComponent } from '../components/PlayerListComponent';
+import PlayerListComponent from '../components/PlayerListComponent';
 
 interface Props {
 }

@@ -47,13 +47,18 @@ http://localhost:8111/ui
 - https://github.com/spring-projects/spring-data-examples/tree/main/jpa/example/src/main/java/example/springdata/jpa
 
 ## Typescript
-
 - https://www.typescriptlang.org/docs/handbook/classes.html
 
 ## React
 - https://create-react-app.dev/docs/getting-started/
+- https://reactrouter.com
 - https://www.geeksforgeeks.org/reactjs-router/
 - https://stackoverflow.com/questions/38196448/can-i-set-a-base-route-in-react-router
+- https://reactjs.org/docs/hooks-intro.html
+- https://stackoverflow.com/questions/31079081/programmatically-navigate-using-react-router
+- https://stackoverflow.com/questions/33438186/react-router-cannot-read-property-transitionto-of-undefined
+- https://dev.to/kozakrisz/react-router---how-to-pass-history-object-to-a-component-3l0j
+- https://github.com/remix-run/react-router/issues/8146
 
 ## Rails
 - https://guides.rubyonrails.org/active_record_migrations.html
