@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
+import store from '../store'
 
 type Props = {
   playerInfo: any | null,
@@ -11,6 +12,7 @@ type Props = {
 }
 
 type State = {
+  game: any | null,
   selectedId: string | null,
   tokens: Array<any>,
 }
@@ -20,6 +22,7 @@ export class TokenPanel extends React.Component<Props, State> {
     super(props);
 
     this.state = {
+      game: store.getState().game?.game,
       tokens: [
         {
           id: 'rock',
@@ -44,6 +47,16 @@ export class TokenPanel extends React.Component<Props, State> {
 
   componentDidMount() {
     Emitter.on('game.select.token', this.eventSelectToken);
+
+    const playerId = this.props.playerInfo?.id;
+
+    if (this.state.game) {
+      const gs = this.state.game.gameStates.find((gs: any) => gs.player.id === playerId);
+
+      if (gs.hand) {
+        Emitter.emit('game.select.token', { playerId: this.props.playerInfo?.id, tokenId: gs.hand });
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -90,10 +103,10 @@ export class TokenPanel extends React.Component<Props, State> {
                 key={token.id}
                 className={ classNames("btn", {
                   'btn-success': this.state.selectedId === token.id,
-                  'btn-outline-light': (this.state.selectedId && this.state.selectedId !== token.id || this.props.remote),
+                  'btn-outline-light': (this.state.selectedId && this.state.selectedId !== token.id),
                   'btn-outline-secondary': !this.state.selectedId,
                 })}
-                disabled={this.state.selectedId || this.props.remote}
+                disabled={this.state.selectedId || this.props.remote === "true"}
                 onClick={(e) => this.onSelectToken(e, token.id)}>
               <img src={baseUrl + token.iconUrl} alt={token.name}></img>
               <strong>{token.name}</strong>

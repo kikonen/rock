@@ -62,14 +62,14 @@ export class GamePage extends React.Component<Props, State> {
   async updateGameState(e: any) {
     console.log("SELECT_TOKEN", e);
 
-    const state = this.state.game.gameStates.find((state: any) => state.player.id === e.playerId);
+    const gs = this.state.game.gameStates.find((gs: any) => gs.player.id === e.playerId);
 
     let data = {
-      id: state.id,
+      id: gs.id,
       hand: e.tokenId,
     }
 
-    const response = await fetch(`../api/game_states/${state.id}`, {
+    const response = await fetch(`../api/game_states/${gs.id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
