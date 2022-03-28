@@ -42,11 +42,13 @@ export class RootContainer extends React.Component<Props> {
   componentDidMount() {
     Emitter.on('game.select.user', this.eventSelectUser);
     Emitter.on('game.select.opponent', this.eventSelectOpponent);
+    Emitter.on('game.select.game', this.eventSelectGame);
   }
 
   componentWillUnmount() {
     Emitter.off('game.select.user');
     Emitter.off('game.select.opponent');
+    Emitter.off('game.select.game');
   }
 
   async eventSelectUser(e: any) {
@@ -78,8 +80,43 @@ export class RootContainer extends React.Component<Props> {
     Emitter.emit('game.navigate', { route: '/game' });
   }
 
+  async eventSelectGame(e: any) {
+    console.log(e);
+
+    const gameInfo = await this.fetchGame(e.gameId);
+    console.log("game", gameInfo);
+
+    let user = store.getState().user?.user;
+    let opponent = store.getState().opponent?.opponent;
+
+    const player1 = gameInfo.gameStates[0].player;
+    const player2 = gameInfo.gameStates[1].player;
+
+    if (player1.id === user.id) {
+      user = player1;
+      opponent = player2;
+    } else {
+      user = player2;
+      opponent = player1;
+    }
+
+    this.props.dispatch(setUser(user));
+    this.props.dispatch(setOpponent(opponent));
+
+    console.log("store-user", store.getState().user);
+    console.log("store-opponent", store.getState().opponent);
+
+    Emitter.emit('game.navigate', { route: '/game' });
+  }
+
   async fetchPlayer(playerId: string) {
     const url = `../api/players/${playerId}`;
+    const response = await fetch(url);
+    return response.json();
+  }
+
+  async fetchGame(gameId: string) {
+    const url = `../api/games/${gameId}`;
     const response = await fetch(url);
     return response.json();
   }

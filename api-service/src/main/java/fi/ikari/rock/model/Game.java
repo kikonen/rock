@@ -39,7 +39,7 @@ public class Game {
     @OneToMany
     @JoinColumn(name = "game_id")
     @JsonManagedReference
-    private Set<GameState> gamesStates;
+    private Set<GameState> gameStates;
 
 //    @ManyToMany
 //    @JoinTable(name = "game_states",
@@ -81,12 +81,12 @@ public class Game {
 		this.endTime = endTime;
 	}
 
-	public Set<GameState> getGamesStates() {
-		return gamesStates;
+	public Set<GameState> getGameStates() {
+		return gameStates;
 	}
 
-	public void setGamesStates(Set<GameState> gamesStates) {
-		this.gamesStates = gamesStates;
+	public void setGameStates(Set<GameState> gameStates) {
+		this.gameStates = gameStates;
 	}
 
 //	public Set<Player> getPlayers() {

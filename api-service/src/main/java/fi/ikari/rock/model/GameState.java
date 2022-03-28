@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;;
+import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;;
 
 @Entity
 @Table(name = "game_states")
@@ -26,8 +29,9 @@ public class GameState {
     @Column(name = "game_id")
     private UUID gameId;
 
-    @Column(name = "player_id")
-    private UUID player_id;
+    @ManyToOne
+    @JsonManagedReference
+	private Player player;
 
     public void setId(UUID id) {
         this.id = id;
@@ -61,12 +65,12 @@ public class GameState {
 		this.gameId = gameId;
 	}
 
-	public UUID getPlayer_id() {
-		return player_id;
+	public Player getPlayer() {
+		return player;
 	}
 
-	public void setPlayer_id(UUID player_id) {
-		this.player_id = player_id;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
-
+	
 }

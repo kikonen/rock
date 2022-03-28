@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;;
+import com.fasterxml.jackson.annotation.JsonBackReference;;
 
 @Entity
 @Table(name = "players")
@@ -30,7 +30,7 @@ public class Player {
     
     @OneToMany
     @JoinColumn(name = "player_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<GameState> gameStates = new HashSet<GameState>();
     
 //    @ManyToMany

@@ -54,7 +54,7 @@ export class GameList extends React.Component<Props, State> {
           <div key={game.id} className="col-12">
             <button className='btn-outline-primary btn-sm mt-1 mb-1 sl-w-100'
               onClick={(e) => this.onSelectGame(e, game.id)}>
-              <b>{game.id}</b>
+              <b>{game.gameStates[0].player.name} vs. {game.gameStates[1].player.name}</b>
             </button>
           </div>
         ))}
