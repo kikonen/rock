@@ -14,11 +14,11 @@ import fi.ikari.rock.model.GameState;
 import fi.ikari.rock.repository.GameStateRepository;
 
 @RestController
-class GameStateStateController {
+class GameStateController {
 
   private final GameStateRepository repository;
 
-  GameStateStateController(GameStateRepository repository) {
+  GameStateController(GameStateRepository repository) {
     this.repository = repository;
   }
 
@@ -49,7 +49,12 @@ class GameStateStateController {
 
     return repository.findById(UUID.fromString(id))
       .map(state -> {
-        state.setHand(newState.getHand());
+    	  if (newState.getStatus() != null) {
+    		  state.setStatus(newState.getStatus());
+    	  }
+    	  if (newState.getHand() != null) {
+    		  state.setHand(newState.getHand());
+    	  }
         return repository.save(state);
       })
       .orElseThrow(() -> new GameStateNotFoundException(id));
