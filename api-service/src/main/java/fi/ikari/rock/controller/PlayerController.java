@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.ikari.rock.model.Player;
 import fi.ikari.rock.repository.PlayerRepository;
-import fi.ikari.rock.repository.PlayerRepository;
 
 @RestController
 class PlayerController {

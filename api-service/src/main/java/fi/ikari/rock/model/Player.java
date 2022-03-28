@@ -1,5 +1,7 @@
 package fi.ikari.rock.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -7,9 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;;
+import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;;
 
 @Entity
 @Table(name = "players")
@@ -21,6 +27,18 @@ public class Player {
     private UUID id;
 
     private String name;
+    
+    @OneToMany
+    @JoinColumn(name = "player_id")
+    @JsonManagedReference
+    private Set<GameState> gameStates = new HashSet<GameState>();
+    
+//    @ManyToMany
+//    @JoinTable(name = "game_states",
+//    	joinColumns = { @JoinColumn(name = "player_id") },
+//        inverseJoinColumns = { @JoinColumn(name = "game_id") })
+//    @JsonBackReference	
+//    private Set<Game> games;
 
     public void setId(UUID id) {
         this.id = id;
@@ -37,4 +55,12 @@ public class Player {
     public String getName() {
         return name;
     }
+	
+	public Set<GameState> getGameStates() {
+		return gameStates;
+	}
+
+	public void setGameStates(Set<GameState> gameStates) {
+		this.gameStates = gameStates;
+	}
 }

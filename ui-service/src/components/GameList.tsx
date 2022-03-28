@@ -31,6 +31,8 @@ export class GameList extends React.Component<Props, State> {
     const response = await fetch(url);
     let rs = await response.json();
 
+    console.log("GAMES", rs);
+
     this.setState((state, props) => ({
       games: rs,
     }));
