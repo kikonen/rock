@@ -24,7 +24,7 @@ function withNavigation(Component: any) {
   return (props: any) => <Component {...props} navigate={useNavigate()} />;
 }
 
-export class PlayerListComponent extends React.Component<Props, State> {
+export class PlayerList extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
 
@@ -73,4 +73,4 @@ export class PlayerListComponent extends React.Component<Props, State> {
   }
 }
 
-export default withNavigation(PlayerListComponent);
+export default withNavigation(PlayerList);

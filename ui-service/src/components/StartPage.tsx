@@ -8,7 +8,9 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import PlayerListComponent from '../components/PlayerListComponent';
+import PlayerList from '../components/PlayerList';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 interface Props {
 }
@@ -23,21 +25,12 @@ export class StartPage extends React.Component<Props> {
   render() {
     return (
       <div>
+        <Header />
         <h1>Start your rocking journey</h1>
 
-        <PlayerListComponent />
+        <PlayerList />
 
-        <ul>
-          <li>
-            <Link to="/lobby">New Rock</Link>
-          </li>
-          <li>
-            <Link to={`/statistics`}>Rock of fame</Link>
-          </li>
-          <li>
-            <Link to="/">Intro to Rock</Link>
-          </li>
-        </ul>
+        <Footer />
       </div>
     );
   }
