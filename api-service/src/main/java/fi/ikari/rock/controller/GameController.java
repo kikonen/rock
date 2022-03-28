@@ -44,7 +44,7 @@ class GameController {
       .orElseThrow(() -> new GameNotFoundException(id));
   }
 
-  @PutMapping("/games/{id}")
+  @PutMapping(value = "/games/{id}", consumes={"application/json"})
   Game replaceGame(@RequestBody Game newGame, @PathVariable String id) {
 
     return repository.findById(UUID.fromString(id))

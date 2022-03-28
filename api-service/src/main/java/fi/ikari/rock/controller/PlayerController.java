@@ -44,7 +44,7 @@ class PlayerController {
       .orElseThrow(() -> new PlayerNotFoundException(id));
   }
 
-  @PutMapping("/players/{id}")
+  @PutMapping(value = "/players/{id}", consumes={"application/json"})
   Player replacePlayer(@RequestBody Player newPlayer, @PathVariable String id) {
 
     return repository.findById(UUID.fromString(id))

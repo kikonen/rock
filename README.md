@@ -37,7 +37,7 @@ http://localhost:8111/ui
 ## Concept
 - https://en.wikipedia.org/wiki/Rock_paper_scissors
 
-## SpringBoot
+## Spring Boot
 - https://spring.io/projects/spring-boot
 - https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#documentation
 - https://nutbutterfly.medium.com/spring-boot-postgresql-uuid-string-f6ca7d8139ed
@@ -45,6 +45,10 @@ http://localhost:8111/ui
 - https://spring.io/guides/tutorials/rest/
 - https://zetcode.com/springboot/postgresql/
 - https://github.com/spring-projects/spring-data-examples/tree/main/jpa/example/src/main/java/example/springdata/jpa
+- https://www.baeldung.com/spring-415-unsupported-mediatype
+- https://thorben-janssen.com/ultimate-guide-association-mappings-jpa-hibernate
+- https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue
+- https://www.javafixing.com/2022/01/fixed-415-http-media-type-not-supported.html
 
 ## Typescript
 - https://www.typescriptlang.org/docs/handbook/classes.html

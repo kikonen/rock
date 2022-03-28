@@ -57,7 +57,29 @@ export class GamePage extends React.Component<Props, State> {
 
   async eventSelectToken(e: any) {
     console.log(e);
-    Emitter.emit('game.state.change', { stateId: e.playerId == this.state.user.id ? 'win' : 'loss' });
+
+    console.log("SELECT_TOKEN", e);
+
+    const state = this.state.game.gameStates.find((state: any) => state.player.id === e.playerId);
+
+    let data = {
+      id: state.id,
+      hand: e.tokenId,
+    }
+
+    const response = await fetch(`../api/game_states/${state.id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      let rs = await response.json();
+      console.log("UPDATED_STATE", rs);
+    }
   }
 
   async pollGame() {
@@ -71,7 +93,7 @@ export class GamePage extends React.Component<Props, State> {
     }
     const game = await this.fetchGame(gameId);
     Emitter.emit('game.update.game', { game: game });
-    setTimeout(this.pollGame, 2000);
+    setTimeout(this.pollGame, 5000);
   }
 
   async fetchGame(gameId: string) {

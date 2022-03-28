@@ -10,9 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;;
+import org.hibernate.annotations.GenericGenerator;;
 
 @Entity
 @Table(name = "game_states")
@@ -30,7 +28,6 @@ public class GameState {
     private UUID gameId;
 
     @ManyToOne
-    @JsonManagedReference
 	private Player player;
 
     public void setId(UUID id) {
