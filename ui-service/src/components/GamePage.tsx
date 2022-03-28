@@ -60,12 +60,12 @@ export class GamePage extends React.Component<Props, State> {
         <Header />
         <h1>Rock to victory</h1>
 
-        <div className="d-flex">
+        <div className="d-flex justify-content-center">
           <div>
             <TokenPanel playerInfo={this.state.user} />
           </div>
 
-          <div>
+          <div className="mr-4 ml-4">
             <GameStatePanel />
           </div>
 

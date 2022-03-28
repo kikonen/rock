@@ -22,7 +22,7 @@ export class GameStatePanel extends React.Component<Props, State> {
       tokens: [
         {
           id: 'wait',
-          name: 'waiting...',
+          name: 'wait',
           cls: 'btn-outline-secondary',
           iconUrl: '/icons/arrows-rotate-solid.svg',
         },
@@ -72,10 +72,10 @@ export class GameStatePanel extends React.Component<Props, State> {
 
     return (
       <div className="btn-group btn-group-vertical">
-        <button key={token.id} className={"btn " + token.cls}>
+        <div key={token.id} className={"btn " + token.cls}>
           <img src={baseUrl + token.iconUrl} alt={token.name}></img>
           <strong>{token.name}</strong>
-        </button>
+        </div>
       </div>
     );
   }
