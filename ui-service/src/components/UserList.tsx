@@ -59,8 +59,6 @@ export class UserList extends React.Component<Props, State> {
     console.log("select user: " + userId);
 
     Emitter.emit('game.select.user', { playerId: userId });
-
-    this.props.navigate('/lobby');
   }
 
   render() {

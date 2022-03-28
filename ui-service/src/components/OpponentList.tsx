@@ -7,10 +7,9 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import { AppContext } from "../AppContext";
-
 
 type Props = {
+  userId: string,
   navigate: any
 }
 
@@ -23,8 +22,6 @@ function withNavigation(Component: any) {
 }
 
 export class OpponentList extends React.Component<Props, State> {
-  static contextType = AppContext;
-
   constructor(props: any) {
     super(props);
 
@@ -36,7 +33,6 @@ export class OpponentList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log("context", this.context);
     this.fetchOpponents();
   }
 
@@ -45,7 +41,7 @@ export class OpponentList extends React.Component<Props, State> {
     const response = await fetch(url);
     let rs = await response.json();
 
-    const userId = this.context.userId;
+    const userId = this.props.userId;
     rs = rs.filter((opponent: any) => opponent.id !== userId );
 
     this.setState((state, props) => ({
@@ -59,8 +55,6 @@ export class OpponentList extends React.Component<Props, State> {
     console.log("select opponent: " + opponentId);
 
     Emitter.emit('game.select.opponent', { playerId: opponentId });
-
-    this.props.navigate('/game');
   }
 
   render() {

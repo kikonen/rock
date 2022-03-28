@@ -12,22 +12,10 @@ import {AppContext} from "./AppContext";
 
 import { RootContainer } from './components/RootContainer';
 
-import {
-  setUser,
-} from './userReducer';
-
-import {
-  setOpponent,
-} from './opponentReducer';
-
 type AppProps = {
-  setUser?: any,
-  setOpponent?: any,
 };
 
 type AppState = {
-  user: any | null,
-  opponent: any | null,
 };
 
 function mapStateToProps(state: any) {
@@ -37,8 +25,7 @@ function mapStateToProps(state: any) {
   };
 }
 
-//export default App;
-const ConnectedRoot = connect(mapStateToProps, { setUser, setOpponent })(RootContainer);
+const ConnectedRoot = connect(mapStateToProps)(RootContainer);
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: any) {
@@ -53,42 +40,6 @@ export default class App extends React.Component<AppProps, AppState> {
   }
 
   componentDidMount() {
-    Emitter.on('game.select.user', this.eventSelectUser);
-    Emitter.on('game.select.opponent', this.eventSelectOpponent);
-  }
-
-  async eventSelectUser(e: any) {
-    console.log(e);
-
-    const userInfo = await this.fetchPlayer(e.playerId);
-    console.log("user", userInfo);
-
-    const fn = () => { console.log("SET"); setUser(this.state.user); }
-
-    this.setState((state, props) => ({
-      user: userInfo,
-    }),
-    fn);
-  }
-
-  async eventSelectOpponent(e: any) {
-    console.log(e);
-    // TODO KI find pending game
-    // TODO KI create game if no pending
-    // activate "game"
-
-    const opponentInfo = await this.fetchPlayer(e.playerId);
-    console.log("opponent", opponentInfo);
-
-    this.setState((state, props) => ({
-      opponent: opponentInfo,
-    }));
-  }
-
-  async fetchPlayer(playerId: string) {
-    const url = `../api/players/${playerId}`;
-    const response = await fetch(url);
-    return response.json();
   }
 
   render() {
