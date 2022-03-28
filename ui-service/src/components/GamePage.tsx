@@ -20,6 +20,23 @@ type State = {
   opponent: any | null,
 }
 
+const RULES = {
+  rock: {
+    rock: 'draw',
+    paper: 'lose',
+    scissors: 'win',
+  },
+  paper: {
+    rock: 'win',
+    paper: 'draw',
+    scissors: 'lose',
+  },
+  scissors: {
+    rock: 'win',
+    paper: 'lose',
+    scissors: 'draw',
+  },
+}
 
 export class GamePage extends React.Component<Props, State> {
   constructor(props: any) {
@@ -98,8 +115,22 @@ export class GamePage extends React.Component<Props, State> {
     const game = await this.fetchGame(gameId);
     Emitter.emit('game.update.game', { game: game });
 
+    this.updateGameStatus(game);
+
     if (!noTimer) {
       setTimeout(this.pollGame, 5000);
+    }
+  }
+
+  async updateGameStatus(game: any) {
+    const userState = this.state.game.gameStates.find((gs: any) => gs.player.id === this.state.user.id);
+    const opponentState = this.state.game.gameStates.find((gs: any) => gs.player.id === this.state.opponent.id);
+
+    const rules = RULES[userState.hand];
+    const result = rules ? rules[opponentState.hand] : null;
+
+    if (result) {
+      Emitter.emit('game.state.change', { stateId: result });
     }
   }
 
