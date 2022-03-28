@@ -1,5 +1,6 @@
 package fi.ikari.rock.controller;
 
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,15 +12,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.ikari.rock.model.Game;
+import fi.ikari.rock.model.GameState;
+import fi.ikari.rock.model.Player;
 import fi.ikari.rock.repository.GameRepository;
+import fi.ikari.rock.repository.GameStateRepository;
+import fi.ikari.rock.repository.PlayerRepository;
 
 @RestController
 class GameController {
 
   private final GameRepository repository;
+  private final PlayerRepository playerRepository;
+  private final GameStateRepository stateRepository;
 
-  GameController(GameRepository repository) {
+  GameController(GameRepository repository, PlayerRepository playerRepository, GameStateRepository stateRepository) {
     this.repository = repository;
+    this.playerRepository = playerRepository;
+    this.stateRepository = stateRepository;
   }
 
   // Aggregate root
@@ -32,7 +41,18 @@ class GameController {
 
   @PostMapping("/games")
   Game newGame(@RequestBody Game newGame) {
-    return repository.save(newGame);
+	Set<GameState> states = newGame.getGameStates();
+	newGame.setGameStates(null);
+    Game saved = repository.save(newGame);
+	
+	for (GameState state : states) {
+		state.setGameId(newGame.getId());
+		Player player = playerRepository.findById(state.getPlayer().getId()).get();
+		state.setPlayer(player);
+		stateRepository.save(state);
+	}
+
+	return saved;
   }
 
   // Single item

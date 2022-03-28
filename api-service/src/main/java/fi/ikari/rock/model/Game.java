@@ -10,14 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;;
+import org.hibernate.annotations.GenericGenerator;;
 
 @Entity
 @Table(name = "games")
@@ -38,7 +34,6 @@ public class Game {
    
     @OneToMany
     @JoinColumn(name = "game_id")
-    @JsonManagedReference
     private Set<GameState> gameStates;
 
 //    @ManyToMany

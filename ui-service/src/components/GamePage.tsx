@@ -56,8 +56,10 @@ export class GamePage extends React.Component<Props, State> {
   }
 
   async eventSelectToken(e: any) {
-    console.log(e);
+    updateGameState(e);
+  }
 
+  async updateGameState(e: any) {
     console.log("SELECT_TOKEN", e);
 
     const state = this.state.game.gameStates.find((state: any) => state.player.id === e.playerId);
@@ -79,10 +81,12 @@ export class GamePage extends React.Component<Props, State> {
     if (response.ok) {
       let rs = await response.json();
       console.log("UPDATED_STATE", rs);
+
+      pollGame(true);
     }
   }
 
-  async pollGame() {
+  async pollGame(noTimer) {
     if (!this.started) {
       return;
     }
@@ -93,7 +97,10 @@ export class GamePage extends React.Component<Props, State> {
     }
     const game = await this.fetchGame(gameId);
     Emitter.emit('game.update.game', { game: game });
-    setTimeout(this.pollGame, 5000);
+
+    if (!noTimer) {
+      setTimeout(this.pollGame, 5000);
+    }
   }
 
   async fetchGame(gameId: string) {

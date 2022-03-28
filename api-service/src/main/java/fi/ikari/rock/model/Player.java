@@ -1,6 +1,5 @@
 package fi.ikari.rock.model;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class Player {
     @OneToMany
     @JoinColumn(name = "player_id")
     @JsonBackReference
-    private Set<GameState> gameStates = new HashSet<GameState>();
+    private Set<GameState> gameStates;
     
 //    @ManyToMany
 //    @JoinTable(name = "game_states",

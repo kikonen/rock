@@ -71,18 +71,13 @@ export class RootContainer extends React.Component<Props> {
 
   async eventSelectOpponent(e: any) {
     console.log(e);
-    // TODO KI find pending game
-    // TODO KI create game if no pending
-    // activate "game"
 
-    const opponentInfo = await this.fetchPlayer(e.playerId);
-    console.log("opponent", opponentInfo);
+    const user = store.getState().user.user;
 
-    this.props.dispatch(setOpponent(opponentInfo));
+    const opponent = await this.fetchPlayer(e.playerId);
+    console.log("opponent", opponent);
 
-    console.log("store-opponent", store.getState().opponent);
-
-    Emitter.emit('game.navigate', { route: '/game' });
+    this.createNewGame({ user, opponent });
   }
 
   async eventSelectGame(e: any) {
@@ -133,6 +128,44 @@ export class RootContainer extends React.Component<Props> {
     const url = `../api/games/${gameId}`;
     const response = await fetch(url);
     return response.json();
+  }
+
+  async createNewGame(gameInfo: any) {
+    console.log("NEW_GAME", gameInfo);
+
+    let data = {
+      status: 'pending',
+      gameStates: [
+        {
+          status: 'pending',
+          player: {
+            id: gameInfo.user.id,
+          }
+        },
+        {
+          status: 'pending',
+          player: {
+            id: gameInfo.opponent.id,
+          }
+        },
+      ]
+    }
+
+    const response = await fetch(`../api/games`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      let rs = await response.json();
+      console.log("CREATED_GAME", rs);
+
+      Emitter.emit('game.select.game', { gameId: rs.id });
+    }
   }
 
   render() {

@@ -9,7 +9,7 @@ if [[ $1 != '' ]]; then
 fi
 
 if [[ "$SERVICE_MODE" == "debug" ]]; then
-    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n \
+    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=0.0.0.0:8000,suspend=n \
          -jar build/libs/rock-$VERSION.jar
 else
     java -jar build/libs/rock-$VERSION.jar

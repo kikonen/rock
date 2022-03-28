@@ -18,7 +18,8 @@ services:
       - .development_env
     volumes:
       - ./api-service:/app
-
+    ports:
+      - "8000:8000"
   ui:
     build:
       context: ./ui-service
