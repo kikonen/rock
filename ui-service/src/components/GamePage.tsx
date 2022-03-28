@@ -32,6 +32,7 @@ export class GamePage extends React.Component<Props> {
         <h1>Rock to victory</h1>
 
         <TokenPanel />
+
         <GameStatePanel />
         <TokenPanel />
 

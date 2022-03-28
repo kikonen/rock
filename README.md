@@ -59,6 +59,8 @@ http://localhost:8111/ui
 - https://stackoverflow.com/questions/33438186/react-router-cannot-read-property-transitionto-of-undefined
 - https://dev.to/kozakrisz/react-router---how-to-pass-history-object-to-a-component-3l0j
 - https://github.com/remix-run/react-router/issues/8146
+- https://reactjs.org/docs/context.html#reactcreatecontext
+- https://www.freecodecamp.org/news/react-context-for-beginners/
 
 ## Rails
 - https://guides.rubyonrails.org/active_record_migrations.html

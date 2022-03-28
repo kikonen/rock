@@ -9,6 +9,8 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
+import { AppContext } from "../AppContext";
+
 import Player from '../models/Player';
 
 
@@ -25,6 +27,8 @@ function withNavigation(Component: any) {
 }
 
 export class PlayerList extends React.Component<Props, State> {
+  static contextType = AppContext;
+
   constructor(props: any) {
     super(props);
 
@@ -36,6 +40,7 @@ export class PlayerList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    console.log("context", this.context);
     this.fetchPlayers();
   }
 
@@ -44,6 +49,9 @@ export class PlayerList extends React.Component<Props, State> {
     const response = await fetch(url);
     let rs = await response.json();
 
+    const userId = this.context.userId;
+    rs = rs.filter((player: any) => player.id !== userId );
+
     this.setState((state, props) => ({
       players: rs,
     }));
@@ -51,6 +59,8 @@ export class PlayerList extends React.Component<Props, State> {
 
   async onSelectPlayer(e: any, playerId: string) {
     e.preventDefault();
+
+    console.log("context", this.context);
 
     console.log("select player: " + playerId);
     console.log(this.props);

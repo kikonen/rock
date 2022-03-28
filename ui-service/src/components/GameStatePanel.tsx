@@ -54,7 +54,7 @@ export class GameStatePanel extends React.Component<Props, State> {
     return (
       <div className="btn-group btn-group-vertical">
         {this.state.tokens.map((token) => (
-          <button className="btn btn-outline-secondary">
+          <button key={token.id} className="btn btn-outline-secondary">
             <img src={baseUrl + token.iconUrl}></img>
             <strong>{token.name}</strong>
           </button>

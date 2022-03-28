@@ -14,6 +14,8 @@ import './App.css';
 import Emitter from './Emitter';
 import autobind from './autobind'
 
+import {AppContext} from "./AppContext";
+
 import { HomePage } from './components/HomePage';
 import { NewPage } from './components/NewPage';
 import { LobbyPage } from './components/LobbyPage';
@@ -22,92 +24,39 @@ import { StatisticsPage } from './components/StatisticsPage';
 import { AboutPage } from './components/AboutPage';
 
 type AppState = {
-  userName: String,
+  userId?: string,
   userInfo: any,
-  message: String,
-  event: String,
 };
+
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      userName: 'React',
-      userInfo: { name: 'Not logged in', id: null, valid: false },
-      message: '',
-      event: '',
+      userId: '40170e10-9b3e-419e-ac17-00c5d107bebc',
+      userInfo: { id: null, name: 'Not logged in', valid: false },
     };
 
     autobind(this);
   }
 
   componentDidMount() {
-    this.subscribeTopics();
     this.fetchUserInfo();
   }
 
   async fetchUserInfo() {
-    const url = `../api/greeting?name=${this.state.userName}`;
+    const url = `../api/players/${this.state.userId}`;
     const response = await fetch(url);
-    let rs = await response.json();
+    const rs = await response.json();
     console.log(rs);
 
     let fn = () => this.startGame();
 
     this.setState((state, props) => ({
-      message: rs.message,
+      userInfo: rs,
     }),
     fn);
-  }
-
-  subscribeTopics() {
-    let stompClient = new Client();
-    let app_key = 'todo';
-    let app_token = 'todo';
-
-    stompClient.configure({
-      brokerURL: 'ws://localhost:8111/api/rock-websocket',
-      connectHeaders: {
-        login: 'guest',
-        passcode: 'guest',
-        accessToken: app_token,
-        appKey: app_key,
-      },
-      reconnectDelay: 2000,
-      heartbeatIncoming: 0,
-      heartbeatOutgoing: 20000,
-      onConnect: () => {
-        console.log("On connect");
-        stompClient.subscribe('/topic/messages', (message) => {
-          console.log("message");
-          console.log("Connected", "Connected");
-        }, {appKey: app_key});
-
-        stompClient.publish({
-          destination: "/app/hello",
-          headers: { priority: '9' },
-          body: '"STOMP"' });
-      },
-      onStompError: (frame) => {
-        console.log('Broker reported error: ' + frame.headers['message']);
-        console.log('Additional details: ' + frame.body);
-      },
-      onDisconnect: (frame) => {
-        console.log("Stomp Disconnect", frame);
-      },
-      onWebSocketClose: (frame) => {
-        console.log("Stomp WebSocket Closed", frame);
-      },
-      debug: (str) => {
-        console.log(new Date(), str);
-      },
-      onUnhandledMessage: (msg) => {
-        console.log(msg);
-      }
-    });
-
-    stompClient.activate();
   }
 
   startGame() {
@@ -115,18 +64,20 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <Router basename={process.env.PUBLIC_URL}>
+      <AppContext.Provider value={ this.state }>
         <div className="App">
-          <Routes>
-            <Route path='/' element={< HomePage />}></Route>
-            <Route path='/new' element={< NewPage />}></Route>
-            <Route path='/lobby' element={< LobbyPage />}></Route>
-            <Route path='/game' element={< GamePage />}></Route>
-            <Route path='/statistics' element={< StatisticsPage />}></Route>
-            <Route path='/about' element={< AboutPage />}></Route>
-          </Routes>
-        </div>
-      </Router>
+          <Router basename={process.env.PUBLIC_URL}>
+            <Routes>
+              <Route path='/' element={< HomePage />}></Route>
+              <Route path='/new' element={< NewPage />}></Route>
+              <Route path='/lobby' element={< LobbyPage />}></Route>
+              <Route path='/game' element={< GamePage />}></Route>
+              <Route path='/statistics' element={< StatisticsPage />}></Route>
+              <Route path='/about' element={< AboutPage />}></Route>
+            </Routes>
+          </Router>
+       </div>
+     </AppContext.Provider>
     );
   }
 }

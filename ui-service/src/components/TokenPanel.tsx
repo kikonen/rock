@@ -43,13 +43,20 @@ export class TokenPanel extends React.Component<Props, State> {
     autobind(this);
   }
 
+  onSelectToken(event: any , token: any) {
+    console.log("Selected", token);
+  }
+
   render() {
     const baseUrl = process.env.PUBLIC_URL;
 
     return (
       <div className="btn-group btn-group-vertical">
         {this.state.tokens.map((token) => (
-          <button className="btn btn-outline-secondary">
+          <button
+              key={token.id}
+              className="btn btn-outline-secondary"
+              onClick={(e) => this.onSelectToken(e, token.id)}>
             <img src={baseUrl + token.iconUrl}></img>
             <strong>{token.name}</strong>
           </button>

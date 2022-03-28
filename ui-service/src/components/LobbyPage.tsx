@@ -8,6 +8,8 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
+import {AppContext} from "../AppContext";
+
 import PlayerList from '../components/PlayerList';
 import GameList from '../components/GameList';
 
@@ -30,7 +32,10 @@ export class LobbyPage extends React.Component<Props> {
         <Header />
         <h1>Rock is waiting for you</h1>
 
+        <h2>Select opponent</h2>
         <PlayerList />
+
+        <h2>Pending challenges</h2>
         <GameList />
 
         <Footer />
