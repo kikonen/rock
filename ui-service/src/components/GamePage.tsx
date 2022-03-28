@@ -111,6 +111,11 @@ export class GamePage extends React.Component<Props, State> {
       return;
     }
     const game = await this.fetchGame(gameId);
+
+    this.setState({
+      game: game
+    });
+
     Emitter.emit('game.update.game', { game: game });
 
     this.updateGameStatus(game);

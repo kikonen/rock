@@ -12,6 +12,7 @@ type Props = {
 }
 
 type State = {
+  showRemote: boolean
   game: any | null,
   selectedId: string | null,
   tokens: Array<any>,
@@ -22,6 +23,7 @@ export class TokenPanel extends React.Component<Props, State> {
     super(props);
 
     this.state = {
+      showRemote: false,
       game: store.getState().game?.game,
       tokens: [
         {
@@ -46,12 +48,19 @@ export class TokenPanel extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    Emitter.on('game.select.token', this.eventSelectToken);
-
     const playerId = this.props.playerInfo?.id;
 
     if (this.state.game) {
-      const gs = this.state.game.gameStates.find((gs: any) => gs.player.id === playerId);
+      const game = this.state.game;
+      const gs = game.gameStates.find((gs: any) => gs.player.id === playerId);
+
+      let showRemote = (game.gameStates[0].hand && game.gameStates[1].hand);
+      this.setState({
+        showRemote: showRemote,
+      });
+
+      Emitter.on('game.select.token', this.eventSelectToken);
+      Emitter.on('game.update.game', this.eventUpdateGame);
 
       if (gs.hand) {
         Emitter.emit('game.select.token', { playerId: this.props.playerInfo?.id, tokenId: gs.hand });
@@ -61,6 +70,17 @@ export class TokenPanel extends React.Component<Props, State> {
 
   componentWillUnmount() {
     Emitter.off('game.select.token');
+    Emitter.off('game.update.game');
+  }
+
+  async eventUpdateGame(e: any) {
+    const game = e.game;
+
+    this.setState({
+      game: game
+    });
+
+    this.updateShowRemote();
   }
 
   async eventSelectToken(e: any) {
@@ -74,6 +94,17 @@ export class TokenPanel extends React.Component<Props, State> {
 
     this.setState({
       selectedId: e.tokenId,
+    });
+
+    this.updateShowRemote();
+  }
+
+  updateShowRemote() {
+    const game = this.state.game;
+    let showRemote = (game.gameStates[0].hand && game.gameStates[1].hand);
+
+    this.setState({
+      showRemote: showRemote,
     });
   }
 
@@ -89,6 +120,7 @@ export class TokenPanel extends React.Component<Props, State> {
 
   render() {
     const baseUrl = process.env.PUBLIC_URL;
+    const isRemote = this.props.remote === "true";
 
     return (
       <div>
@@ -98,11 +130,11 @@ export class TokenPanel extends React.Component<Props, State> {
             <button
                 key={token.id}
                 className={ classNames("btn", {
-                  'btn-success': this.state.selectedId === token.id,
+                  'btn-success': this.state.selectedId === token.id && (!isRemote || this.state.showRemote),
                   'btn-outline-light': (this.state.selectedId && this.state.selectedId !== token.id),
                   'btn-outline-secondary': !this.state.selectedId,
                 })}
-                disabled={this.state.selectedId || this.props.remote === "true"}
+                disabled={this.state.selectedId || isRemote}
                 onClick={(e) => this.onSelectToken(e, token.id)}>
               <img src={baseUrl + token.iconUrl} alt={token.name}></img>
               <strong>{token.name}</strong>
