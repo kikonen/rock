@@ -25,13 +25,13 @@ export class HomePage extends React.Component<Props> {
 
         <ul>
           <li>
-            <Link to={`./start`}>Start Rock</Link>
+            <Link to={`/start`}>Start Rock</Link>
           </li>
           <li>
-            <Link to={`./statistics`}>Rock of fame</Link>
+            <Link to={`/statistics`}>Rock of fame</Link>
           </li>
           <li>
-            <Link to={`./about`}>About Rock</Link>
+            <Link to={`/about`}>About Rock</Link>
           </li>
         </ul>
       </div>

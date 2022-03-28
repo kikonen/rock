@@ -20,7 +20,7 @@ export class Header extends React.Component<Props> {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div className="navbar-brand">Rock</div>
       </nav>
     );

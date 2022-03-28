@@ -8,6 +8,9 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+
 interface Props {
 }
 
@@ -21,6 +24,7 @@ export class AboutPage extends React.Component<Props> {
   render() {
     return (
       <div>
+        <Header />
         <h2>Hello from KI-productions!</h2>
 
         Read more about rock at:
@@ -36,6 +40,8 @@ export class AboutPage extends React.Component<Props> {
             <Link to={`/statistics`}>Rock of fame</Link>
           </li>
         </ul>
+
+        <Footer />
       </div>
     );
   }
