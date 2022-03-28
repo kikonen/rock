@@ -24,12 +24,9 @@ export class GamePage extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
 
-    const user = store.getState().user?.user || { name: 'N/A' }
-    const opponent = store.getState().opponent?.opponent || { name: 'N/A' }
-
     this.state = {
-      user: user,
-      opponent: opponent,
+      user: store.getState().user?.user ,
+      opponent: store.getState().opponent?.opponent,
     };
     console.log("GAME", this.state);
 
@@ -37,7 +34,11 @@ export class GamePage extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    Emitter.on('game.token.select', this.eventTokenSelect);
+    Emitter.on('game.select.token', this.eventTokenSelect);
+
+    if (!this.state.user && !this.state.opponent) {
+      setTimeout(() => Emitter.emit('game.navigate', { route: '/new' }) );
+    }
   }
 
   async eventTokenSelect(e: any) {
