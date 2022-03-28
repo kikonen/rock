@@ -8,9 +8,12 @@ Simple Rock-Paper-Scissors decision assist utility
 # Development
 
 ## Setup
+```bash
 cp _env .env
 cp _development_env .development_env
-##
+cp _rock_secrets .developmment_secrets
+
+```
 
 ## Database setup
 
