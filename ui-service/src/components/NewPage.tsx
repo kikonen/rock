@@ -8,14 +8,15 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import PlayerList from '../components/PlayerList';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+
+import PlayerList from '../components/PlayerList';
 
 interface Props {
 }
 
-export class StartPage extends React.Component<Props> {
+export class NewPage extends React.Component<Props> {
   constructor(props: any) {
     super(props);
 

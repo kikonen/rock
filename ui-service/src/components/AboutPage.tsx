@@ -32,15 +32,6 @@ export class AboutPage extends React.Component<Props> {
           https://www.ikari.fi/
         </a>
 
-         <ul>
-          <li>
-            <Link to={`/start`}>Start Rock</Link>
-          </li>
-          <li>
-            <Link to={`/statistics`}>Rock of fame</Link>
-          </li>
-        </ul>
-
         <Footer />
       </div>
     );

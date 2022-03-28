@@ -15,7 +15,7 @@ import Emitter from './Emitter';
 import autobind from './autobind'
 
 import { HomePage } from './components/HomePage';
-import { StartPage } from './components/StartPage';
+import { NewPage } from './components/NewPage';
 import { LobbyPage } from './components/LobbyPage';
 import { GamePage } from './components/GamePage';
 import { StatisticsPage } from './components/StatisticsPage';
@@ -119,7 +119,7 @@ class App extends React.Component<{}, AppState> {
         <div className="App">
           <Routes>
             <Route path='/' element={< HomePage />}></Route>
-            <Route path='/start' element={< StartPage />}></Route>
+            <Route path='/new' element={< NewPage />}></Route>
             <Route path='/lobby' element={< LobbyPage />}></Route>
             <Route path='/game' element={< GamePage />}></Route>
             <Route path='/statistics' element={< StatisticsPage />}></Route>

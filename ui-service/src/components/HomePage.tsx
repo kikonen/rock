@@ -25,7 +25,7 @@ export class HomePage extends React.Component<Props> {
 
         <ul>
           <li>
-            <Link to={`/start`}>Start Rock</Link>
+            <Link to={`/new`}>New Rocker</Link>
           </li>
           <li>
             <Link to={`/statistics`}>Rock of fame</Link>

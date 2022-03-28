@@ -9,6 +9,9 @@ import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 import PlayerList from '../components/PlayerList';
+import { TokenPanel } from '../components/TokenPanel';
+import { GameStatePanel } from '../components/GameStatePanel';
+
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -28,7 +31,9 @@ export class GamePage extends React.Component<Props> {
         <Header />
         <h1>Rock to victory</h1>
 
-        <PlayerList />
+        <TokenPanel />
+        <GameStatePanel />
+        <TokenPanel />
 
         <Footer />
       </div>

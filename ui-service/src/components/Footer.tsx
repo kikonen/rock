@@ -23,19 +23,22 @@ export class Footer extends React.Component<Props> {
       <footer className="fixed-bottom">
         <ul className="list-group list-group-horizontal">
           <li className="list-group-item">
-            <Link to={`/start`}>Start Rock</Link>
+            <Link to={`/new`}>New Rocker</Link>
           </li>
           <li className="list-group-item">
-            <Link to="/lobby">New Rock</Link>
+            <Link to="/lobby">Match Rocker</Link>
           </li>
           <li className="list-group-item">
-            <Link to={'/game'}>Start Rocking</Link>
+            <Link to={'/game'}>Throw rock</Link>
           </li>
           <li className="list-group-item">
             <Link to={`/statistics`}>Rock of fame</Link>
           </li>
           <li className="list-group-item">
             <Link to={`/about`}>About Rock</Link>
+          </li>
+          <li className="list-group-item">
+            <a href="https://github.com/kikonen/rock">Github</a>
           </li>
         </ul>
       </footer>
