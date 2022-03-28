@@ -6,7 +6,8 @@ import autobind from "../autobind";
 
 
 type Props = {
-  playerInfo: any | null
+  playerInfo: any | null,
+  remote: boolean,
 }
 
 type State = {
@@ -89,10 +90,10 @@ export class TokenPanel extends React.Component<Props, State> {
                 key={token.id}
                 className={ classNames("btn", {
                   'btn-success': this.state.selectedId === token.id,
-                  'btn-outline-light': this.state.selectedId && this.state.selectedId !== token.id,
+                  'btn-outline-light': (this.state.selectedId && this.state.selectedId !== token.id || this.props.remote),
                   'btn-outline-secondary': !this.state.selectedId,
                 })}
-                disabled={this.state.selectedId}
+                disabled={this.state.selectedId || this.props.remote}
                 onClick={(e) => this.onSelectToken(e, token.id)}>
               <img src={baseUrl + token.iconUrl} alt={token.name}></img>
               <strong>{token.name}</strong>

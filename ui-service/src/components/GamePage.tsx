@@ -56,7 +56,7 @@ export class GamePage extends React.Component<Props, State> {
   }
 
   async eventSelectToken(e: any) {
-    updateGameState(e);
+    this.updateGameState(e);
   }
 
   async updateGameState(e: any) {
@@ -82,7 +82,7 @@ export class GamePage extends React.Component<Props, State> {
       let rs = await response.json();
       console.log("UPDATED_STATE", rs);
 
-      pollGame(true);
+      this.pollGame(true);
     }
   }
 
@@ -133,7 +133,7 @@ export class GamePage extends React.Component<Props, State> {
           </div>
 
           <div>
-            <TokenPanel playerInfo={this.state.opponent} />
+            <TokenPanel playerInfo={this.state.opponent} remote="true" />
           </div>
         </div>
 
