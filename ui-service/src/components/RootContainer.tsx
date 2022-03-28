@@ -47,6 +47,7 @@ export class RootContainer extends React.Component<Props> {
     Emitter.on('game.select.user', this.eventSelectUser);
     Emitter.on('game.select.opponent', this.eventSelectOpponent);
     Emitter.on('game.select.game', this.eventSelectGame);
+    Emitter.on('game.update.game', this.eventUpdateGame);
   }
 
   componentWillUnmount() {
@@ -115,6 +116,11 @@ export class RootContainer extends React.Component<Props> {
     console.log("store-game", store.getState().game);
 
     Emitter.emit('game.navigate', { route: '/game' });
+  }
+
+  async eventUpdateGame(e: any) {
+    const game = e.game;
+    this.props.dispatch(setGame(game));
   }
 
   async fetchPlayer(playerId: string) {

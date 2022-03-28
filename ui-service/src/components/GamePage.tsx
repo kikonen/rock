@@ -41,9 +41,13 @@ export class GamePage extends React.Component<Props, State> {
     if (!this.state.user && !this.state.opponent) {
       setTimeout(() => Emitter.emit('game.navigate', { route: '/new' }) );
     }
+
+    this.started = true;
+    this.pollGame();
   }
 
   componentWillUnmount() {
+    this.started = false;
     Emitter.off('game.select.token');
   }
 
@@ -54,6 +58,26 @@ export class GamePage extends React.Component<Props, State> {
   async eventSelectToken(e: any) {
     console.log(e);
     Emitter.emit('game.state.change', { stateId: e.playerId == this.state.user.id ? 'win' : 'loss' });
+  }
+
+  async pollGame() {
+    if (!this.started) {
+      return;
+    }
+
+    const gameId = this.state.game?.id;
+    if (!gameId) {
+      return;
+    }
+    const game = await this.fetchGame(gameId);
+    Emitter.emit('game.update.game', { game: game });
+    setTimeout(this.pollGame, 2000);
+  }
+
+  async fetchGame(gameId: string) {
+    const url = `../api/games/${gameId}`;
+    const response = await fetch(url);
+    return response.json();
   }
 
   render() {
