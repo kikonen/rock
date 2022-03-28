@@ -1,16 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import {
-  Link
-} from 'react-router-dom';
-
-import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import {AppContext} from "../AppContext";
-
-import PlayerList from '../components/PlayerList';
+import OpponentList from '../components/OpponentList';
 import GameList from '../components/GameList';
 
 import { Header } from '../components/Header';
@@ -33,7 +25,7 @@ export class LobbyPage extends React.Component<Props> {
         <h1>Rock is waiting for you</h1>
 
         <h2>Select opponent</h2>
-        <PlayerList />
+        <OpponentList />
 
         <h2>Pending challenges</h2>
         <GameList />

@@ -8,7 +8,7 @@ import {
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import PlayerList from '../components/PlayerList';
+import { StatisticsList } from '../components/StatisticsList';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -28,7 +28,7 @@ export class StatisticsPage extends React.Component<Props> {
         <Header />
         <h1>Rock of fame</h1>
 
-        <PlayerList />
+        <StatisticsList />
 
         <Footer />
       </div>

@@ -1,14 +1,11 @@
 import React from 'react';
-import {Client} from "@stomp/stompjs";
 
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from 'react-router-dom';
 
-import logo from './logo.svg';
 import './App.css';
 
 import Emitter from './Emitter';
@@ -26,6 +23,9 @@ import { AboutPage } from './components/AboutPage';
 type AppState = {
   userId?: string,
   userInfo: any,
+
+  opponentId?: string,
+  opponentInfo: any,
 };
 
 
@@ -34,32 +34,49 @@ class App extends React.Component<{}, AppState> {
     super(props);
 
     this.state = {
-      userId: '40170e10-9b3e-419e-ac17-00c5d107bebc',
-      userInfo: { id: null, name: 'Not logged in', valid: false },
+      userId: null,
+      userInfo: { id: null, name: 'N/A' },
+      opponentId: null,
+      opponentInfo: { id: null, name: 'N/A' },
     };
 
     autobind(this);
   }
 
   componentDidMount() {
-    this.fetchUserInfo();
+    Emitter.on('game.select.user', this.eventSelectUser);
+    Emitter.on('game.select.opponent', this.eventSelectOpponent);
   }
 
-  async fetchUserInfo() {
-    const url = `../api/players/${this.state.userId}`;
-    const response = await fetch(url);
-    const rs = await response.json();
-    console.log(rs);
+  async eventSelectUser(e: any) {
+    console.log(e);
 
-    let fn = () => this.startGame();
+    const userInfo = await this.fetchPlayer(e.playerId);
 
     this.setState((state, props) => ({
-      userInfo: rs,
-    }),
-    fn);
+      userId: e.playerId,
+      userInfo: userInfo,
+    }));
   }
 
-  startGame() {
+  async eventSelectOpponent(e: any) {
+    console.log(e);
+    // TODO KI find pending game
+    // TODO KI create game if no pending
+    // activate "game"
+
+    const opponentInfo = await this.fetchPlayer(e.playerId);
+
+    this.setState((state, props) => ({
+      opponentId: e.playerId,
+      opponentInfo: opponentInfo,
+    }));
+  }
+
+  async fetchPlayer(playerId: string) {
+    const url = `../api/players/${playerId}`;
+    const response = await fetch(url);
+    return response.json();
   }
 
   render() {

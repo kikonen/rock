@@ -1,9 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
-
-import {
-  Link,
-} from 'react-router-dom';
 
 import Emitter from '../Emitter';
 import autobind from "../autobind";
@@ -48,6 +43,14 @@ export class GameStatePanel extends React.Component<Props, State> {
     autobind(this);
   }
 
+  componentDidMount() {
+    Emitter.on('game.state.change', this.eventGameStateChange);
+  }
+
+  async eventGameStateChange(e: any) {
+    console.log(e);
+  }
+
   render() {
     const baseUrl = process.env.PUBLIC_URL;
 
@@ -55,7 +58,7 @@ export class GameStatePanel extends React.Component<Props, State> {
       <div className="btn-group btn-group-vertical">
         {this.state.tokens.map((token) => (
           <button key={token.id} className="btn btn-outline-secondary">
-            <img src={baseUrl + token.iconUrl}></img>
+            <img src={baseUrl + token.iconUrl} alt={token.name}></img>
             <strong>{token.name}</strong>
           </button>
         ))}

@@ -1,14 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
-
-import {
-  Link
-} from 'react-router-dom';
 
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-import PlayerList from '../components/PlayerList';
 import { TokenPanel } from '../components/TokenPanel';
 import { GameStatePanel } from '../components/GameStatePanel';
 
@@ -25,16 +19,24 @@ export class GamePage extends React.Component<Props> {
     autobind(this);
   }
 
+  componentDidMount() {
+    Emitter.on('game.token.select', this.eventTokenSelect);
+  }
+
+  async eventTokenSelect(e: any) {
+    console.log(e);
+  }
+
   render() {
     return (
       <div>
         <Header />
         <h1>Rock to victory</h1>
 
-        <TokenPanel />
+        <TokenPanel playerId={this.context.userId} />
 
         <GameStatePanel />
-        <TokenPanel />
+        <TokenPanel playerId={this.context.opponentId} />
 
         <Footer />
       </div>

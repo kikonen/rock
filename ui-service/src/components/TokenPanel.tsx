@@ -1,15 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
-
-import {
-  Link,
-} from 'react-router-dom';
 
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 
 interface Props {
+  playerId: string
 }
 
 interface State {
@@ -43,8 +39,12 @@ export class TokenPanel extends React.Component<Props, State> {
     autobind(this);
   }
 
-  onSelectToken(event: any , token: any) {
+  onSelectToken(event: any , tokenId: string) {
+    e.preventDefault();
+
     console.log("Selected", token);
+
+    Emitter.emit('game.select.token', { playerId: playerId, token: tokenId });
   }
 
   render() {
@@ -57,7 +57,7 @@ export class TokenPanel extends React.Component<Props, State> {
               key={token.id}
               className="btn btn-outline-secondary"
               onClick={(e) => this.onSelectToken(e, token.id)}>
-            <img src={baseUrl + token.iconUrl}></img>
+            <img src={baseUrl + token.iconUrl} alt={token.name}></img>
             <strong>{token.name}</strong>
           </button>
         ))}

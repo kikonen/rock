@@ -1,8 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 
 import {
-  Link,
   useNavigate,
 } from 'react-router-dom';
 
@@ -11,29 +9,27 @@ import autobind from "../autobind";
 
 import { AppContext } from "../AppContext";
 
-import Player from '../models/Player';
-
 
 interface Props {
   navigate: any
 }
 
 interface State {
-  players: Array<any>
+  opponents: Array<any>
 }
 
 function withNavigation(Component: any) {
   return (props: any) => <Component {...props} navigate={useNavigate()} />;
 }
 
-export class PlayerList extends React.Component<Props, State> {
+export class OpponentList extends React.Component<Props, State> {
   static contextType = AppContext;
 
   constructor(props: any) {
     super(props);
 
     this.state = {
-      players: [],
+      opponents: [],
     };
 
     autobind(this);
@@ -41,40 +37,40 @@ export class PlayerList extends React.Component<Props, State> {
 
   componentDidMount() {
     console.log("context", this.context);
-    this.fetchPlayers();
+    this.fetchOpponents();
   }
 
-  async fetchPlayers() {
+  async fetchOpponents() {
     const url = `../api/players`;
     const response = await fetch(url);
     let rs = await response.json();
 
     const userId = this.context.userId;
-    rs = rs.filter((player: any) => player.id !== userId );
+    rs = rs.filter((opponent: any) => opponent.id !== userId );
 
     this.setState((state, props) => ({
-      players: rs,
+      opponents: rs,
     }));
   }
 
-  async onSelectPlayer(e: any, playerId: string) {
+  async onSelectOpponent(e: any, opponentId: string) {
     e.preventDefault();
 
-    console.log("context", this.context);
+    console.log("select opponent: " + opponentId);
 
-    console.log("select player: " + playerId);
-    console.log(this.props);
+    Emitter.emit('game.select.opponent', { opponentId: opponentId });
+
     this.props.navigate('/game');
   }
 
   render() {
     return (
       <div>
-        {this.state.players.map((player) => (
-          <div key={player.id} className="col-12">
+        {this.state.opponents.map((opponent) => (
+          <div key={opponent.id} className="col-12">
             <button className='btn-outline-primary btn-sm mt-1 mb-1 sl-w-100'
-              onClick={(e) => this.onSelectPlayer(e, player.id)}>
-              <b>{player.name}</b>
+              onClick={(e) => this.onSelectOpponent(e, opponent.id)}>
+              <b>{opponent.name}</b>
             </button>
           </div>
         ))}
@@ -83,4 +79,4 @@ export class PlayerList extends React.Component<Props, State> {
   }
 }
 
-export default withNavigation(PlayerList);
+export default withNavigation(OpponentList);

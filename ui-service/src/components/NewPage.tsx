@@ -11,7 +11,7 @@ import autobind from "../autobind";
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
-import PlayerList from '../components/PlayerList';
+import UserList from '../components/UserList';
 
 interface Props {
 }
@@ -29,7 +29,7 @@ export class NewPage extends React.Component<Props> {
         <Header />
         <h1>Start your rocking journey</h1>
 
-        <PlayerList />
+        <UserList />
 
         <Footer />
       </div>
