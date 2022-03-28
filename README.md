@@ -1,5 +1,10 @@
 Simple Rock-Paper-Scissors decision assist utility
 
+# Design
+
+- [Models](doc/models.png)
+- [Mockups](doc/mockups.pdf)
+
 # Development
 
 ## Setup

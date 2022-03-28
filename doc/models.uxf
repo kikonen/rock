@@ -4,29 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>180</y>
-      <w>100</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>Game
---
-id
-name
-status
-match_count
---
-created_at
-updated_at
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>540</x>
-      <y>360</y>
+      <x>480</x>
+      <y>420</y>
       <w>100</w>
       <h>120</h>
     </coordinates>
@@ -35,131 +14,168 @@ updated_at
 id
 name
 --
-created_at
-updated_at
---
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>240</y>
-      <w>120</w>
-      <h>130</h>
+      <x>700</x>
+      <y>260</y>
+      <w>130</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 players
 </panel_attributes>
-    <additional_attributes>100.0;20.0;10.0;20.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
-      <y>180</y>
+      <x>610</x>
+      <y>240</y>
       <w>100</w>
       <h>170</h>
     </coordinates>
-    <panel_attributes>Match
+    <panel_attributes>Game
 --
 id
 status
 start_time
 end_time
-winner_fk
-game_fk
---
-created_at
-updated_at
 --
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>510</x>
-      <y>200</y>
-      <w>180</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-matches</panel_attributes>
-    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>630</x>
-      <y>340</y>
-      <w>120</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-winner</panel_attributes>
-    <additional_attributes>10.0;50.0;100.0;50.0;100.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>450</x>
-      <y>110</y>
-      <w>300</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-game
-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;20.0;280.0;20.0;280.0;70.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>350</y>
+      <x>810</x>
+      <y>240</y>
       <w>100</w>
       <h>160</h>
     </coordinates>
-    <panel_attributes>PlayerState
+    <panel_attributes>GameState
 --
 id
-is_originator
 status
+hand
 game_fk
 player_fk
-token
---
-created_at
-updated_at
 --</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>360</y>
-      <w>190</w>
+      <x>570</x>
+      <y>390</y>
+      <w>310</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+player
+</panel_attributes>
+    <additional_attributes>10.0;70.0;290.0;70.0;290.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>310</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+game
+</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>420</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>PlayerState
+--
+id
+status
+last_ping
+player_fk
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>440</y>
+      <w>170</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 player
 </panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
+    <id>Text</id>
     <coordinates>
-      <x>360</x>
-      <y>280</y>
-      <w>80</w>
-      <h>90</h>
+      <x>930</x>
+      <y>260</y>
+      <w>140</w>
+      <h>150</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-game
+    <panel_attributes>status
+-
+- pending
+- accepted
+- selected
+- cancel
+- win
+- loose
+- draw
+style=wordwrap
 </panel_attributes>
-    <additional_attributes>60.0;20.0;10.0;20.0;10.0;70.0</additional_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>100</x>
+      <y>420</y>
+      <w>130</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>status
+-
+- match
+- game
+- pause
+style=wordwrap
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>480</x>
+      <y>240</y>
+      <w>120</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>status
+-
+- pending
+- started
+- completed
+style=wordwrap
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
