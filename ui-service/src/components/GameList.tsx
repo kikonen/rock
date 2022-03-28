@@ -3,8 +3,8 @@ import React from 'react';
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
-
 type Props = {
+  userInfo: any | null
 }
 
 type State = {
@@ -32,6 +32,9 @@ export class GameList extends React.Component<Props, State> {
     let rs = await response.json();
 
     console.log("GAMES", rs);
+
+    const userId = this.props.userInfo.id;
+    rs = rs.filter((game) => game.gameStates[0].player.id === userId || game.gameStates[1].player.id === userId);
 
     this.setState((state, props) => ({
       games: rs,

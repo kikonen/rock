@@ -53,7 +53,7 @@ class LobbyPageImpl extends React.Component<Props, State> {
         <OpponentList userId={this.state.user?.id }/>
 
         <h2>Pending challenges</h2>
-        <GameList />
+        <GameList userInfo={this.state.user} />
 
         <Footer />
       </div>
