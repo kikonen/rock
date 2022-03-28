@@ -25,6 +25,10 @@ export class PlayerCreateDialog extends React.Component<Props, State> {
     Emitter.on('game.player.create.show', this.eventShow);
   }
 
+  componentWillUnmount() {
+    Emitter.off('game.player.create.show');
+  }
+
   eventShow(e: any) {
     console.log("show create dialog...");
 

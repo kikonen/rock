@@ -22,6 +22,10 @@ class NavigatorImpl extends React.Component<Props> {
     Emitter.on('game.navigate', this.eventNavigate);
   }
 
+  componentWillUnmount() {
+    Emitter.off('game.navigate');
+  }
+
   async eventNavigate(e: any) {
     console.log("ROUTE", e);
     this.props.navigate(e.route);

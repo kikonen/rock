@@ -44,6 +44,11 @@ export class RootContainer extends React.Component<Props> {
     Emitter.on('game.select.opponent', this.eventSelectOpponent);
   }
 
+  componentWillUnmount() {
+    Emitter.off('game.select.user');
+    Emitter.off('game.select.opponent');
+  }
+
   async eventSelectUser(e: any) {
     console.log(e);
 

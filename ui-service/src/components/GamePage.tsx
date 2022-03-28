@@ -34,15 +34,24 @@ export class GamePage extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    Emitter.on('game.select.token', this.eventTokenSelect);
+    Emitter.on('game.select.token', this.eventSelectToken);
 
     if (!this.state.user && !this.state.opponent) {
       setTimeout(() => Emitter.emit('game.navigate', { route: '/new' }) );
     }
   }
 
-  async eventTokenSelect(e: any) {
+  componentWillUnmount() {
+    Emitter.off('game.select.token');
+  }
+
+  componentWillUnmount() {
+    Emitter.off('game.select.token');
+  }
+
+  async eventSelectToken(e: any) {
     console.log(e);
+    Emitter.emit('game.state.change', { stateId: e.playerId == this.state.user.id ? 'win' : 'loss' });
   }
 
   render() {
