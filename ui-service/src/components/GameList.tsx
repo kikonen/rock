@@ -31,8 +31,6 @@ export class GameList extends React.Component<Props, State> {
     const response = await fetch(url);
     let rs = await response.json();
 
-    console.log("GAMES", rs);
-
     const userId = this.props.userInfo.id;
     rs = rs.filter((game) => {
       let r = game.gameStates[0].player.id === userId || game.gameStates[1].player.id === userId;
@@ -49,8 +47,6 @@ export class GameList extends React.Component<Props, State> {
 
   async onSelectGame(e: any, gameId: string) {
     e.preventDefault();
-
-    console.log("select game: " + gameId);
 
     Emitter.emit('game.select.game', { gameId: gameId });
   }

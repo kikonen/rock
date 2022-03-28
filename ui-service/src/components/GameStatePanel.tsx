@@ -59,7 +59,6 @@ export class GameStatePanel extends React.Component<Props, State> {
   }
 
   async eventGameStateChange(e: any) {
-    console.log(e);
     this.setState({
       selectedId: e.stateId,
     });

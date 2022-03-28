@@ -30,8 +30,6 @@ export class PlayerCreateDialog extends React.Component<Props, State> {
   }
 
   eventShow(e: any) {
-    console.log("show create dialog...");
-
     let el: HTMLInputElement = document.querySelector("#player_name");
     el.value = '';
 
@@ -48,8 +46,6 @@ export class PlayerCreateDialog extends React.Component<Props, State> {
       name: name,
     };
 
-    console.log("CREATE", data);
-
     const response = await fetch('../api/players', {
       method: 'POST',
       headers: {
@@ -60,7 +56,6 @@ export class PlayerCreateDialog extends React.Component<Props, State> {
 
     if (response.ok) {
       let rs = await response.json();
-      console.log("CREATED", rs);
       $('#player_create_dialog').modal('hide');
     }
   }

@@ -11,6 +11,8 @@ import { GameStatePanel } from '../components/GameStatePanel';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
+const GAME_POLL_TIMEOUT = 1000;
+
 type Props = {
 }
 
@@ -47,7 +49,6 @@ export class GamePage extends React.Component<Props, State> {
       user: store.getState().user?.user ,
       opponent: store.getState().opponent?.opponent,
     };
-    console.log("GAME", this.state);
 
     autobind(this);
   }
@@ -77,8 +78,6 @@ export class GamePage extends React.Component<Props, State> {
   }
 
   async updateGameState(e: any) {
-    console.log("SELECT_TOKEN", e);
-
     const gs = this.state.game.gameStates.find((gs: any) => gs.player.id === e.playerId);
 
     let data = {
@@ -97,7 +96,6 @@ export class GamePage extends React.Component<Props, State> {
 
     if (response.ok) {
       let rs = await response.json();
-      console.log("UPDATED_STATE", rs);
 
       this.pollGame(true);
     }
@@ -118,7 +116,7 @@ export class GamePage extends React.Component<Props, State> {
     this.updateGameStatus(game);
 
     if (!noTimer) {
-      setTimeout(this.pollGame, 5000);
+      setTimeout(this.pollGame, GAME_POLL_TIMEOUT);
     }
   }
 

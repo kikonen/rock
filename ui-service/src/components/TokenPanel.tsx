@@ -64,8 +64,6 @@ export class TokenPanel extends React.Component<Props, State> {
   }
 
   async eventSelectToken(e: any) {
-    console.log(e);
-
     if (!this.props.playerInfo) {
       return;
     }
@@ -85,8 +83,6 @@ export class TokenPanel extends React.Component<Props, State> {
     if (this.state.selectedId) {
       return;
     }
-
-    console.log("Selected", tokenId);
 
     Emitter.emit('game.select.token', { playerId: this.props.playerInfo?.id, tokenId: tokenId });
   }

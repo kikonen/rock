@@ -20,7 +20,6 @@ export class NewPage extends React.Component<Props> {
   }
 
   onPlayerCreate(e: any) {
-    console.log("create...");
     Emitter.emit('game.player.create.show');
   }
 

@@ -1,6 +1,6 @@
 package fi.ikari.rock.controller;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,7 +41,7 @@ class GameController {
 
   @PostMapping("/games")
   Game newGame(@RequestBody Game newGame) {
-	Set<GameState> states = newGame.getGameStates();
+	List<GameState> states = newGame.getGameStates();
 	newGame.setGameStates(null);
     Game saved = repository.save(newGame);
 	

@@ -27,7 +27,6 @@ export class UserList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log("context", this.context);
     this.fetchUsers();
   }
 
@@ -46,8 +45,6 @@ export class UserList extends React.Component<Props, State> {
 
   async onSelectUser(e: any, userId: string) {
     e.preventDefault();
-
-    console.log("select user: " + userId);
 
     Emitter.emit('game.select.user', { playerId: userId });
   }

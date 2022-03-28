@@ -23,8 +23,6 @@ class LobbyPageImpl extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
 
-    console.log("STATE", store.getState());
-
     this.state = {
       user: store.getState().user?.user
     };
@@ -33,8 +31,6 @@ class LobbyPageImpl extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log("lobby", this.props);
-
     if (!this.state.user) {
       setTimeout(() => Emitter.emit('game.navigate', { route: '/new' }) );
     }
@@ -62,7 +58,6 @@ class LobbyPageImpl extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state: any) {
-  console.log("WTF", state);
   return {
     user: state.user,
     opponent: state.opponent,

@@ -57,34 +57,22 @@ export class RootContainer extends React.Component<Props> {
   }
 
   async eventSelectUser(e: any) {
-    console.log(e);
-
     const userInfo = await this.fetchPlayer(e.playerId);
-    console.log("user", userInfo);
 
     this.props.dispatch(setUser(userInfo));
-
-    console.log("store-user", store.getState().user);
 
     Emitter.emit('game.navigate', { route: '/lobby' });
   }
 
   async eventSelectOpponent(e: any) {
-    console.log(e);
-
     const user = store.getState().user.user;
-
     const opponent = await this.fetchPlayer(e.playerId);
-    console.log("opponent", opponent);
 
     this.createNewGame({ user, opponent });
   }
 
   async eventSelectGame(e: any) {
-    console.log(e);
-
     const game = await this.fetchGame(e.gameId);
-    console.log("game", game);
 
     let user = store.getState().user?.user;
     let opponent = store.getState().opponent?.opponent;
@@ -103,12 +91,6 @@ export class RootContainer extends React.Component<Props> {
     this.props.dispatch(setUser(user));
     this.props.dispatch(setOpponent(opponent));
     this.props.dispatch(setGame(game));
-
-    console.log("store", store.getState());
-
-    console.log("store-user", store.getState().user);
-    console.log("store-opponent", store.getState().opponent);
-    console.log("store-game", store.getState().game);
 
     Emitter.emit('game.navigate', { route: '/game' });
   }
@@ -131,8 +113,6 @@ export class RootContainer extends React.Component<Props> {
   }
 
   async createNewGame(gameInfo: any) {
-    console.log("NEW_GAME", gameInfo);
-
     let data = {
       status: 'pending',
       gameStates: [
@@ -162,7 +142,6 @@ export class RootContainer extends React.Component<Props> {
 
     if (response.ok) {
       let rs = await response.json();
-      console.log("CREATED_GAME", rs);
 
       Emitter.emit('game.select.game', { gameId: rs.id });
     }

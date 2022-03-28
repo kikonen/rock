@@ -1,7 +1,7 @@
 package fi.ikari.rock.model;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -34,7 +34,7 @@ public class Game {
    
     @OneToMany
     @JoinColumn(name = "game_id")
-    private Set<GameState> gameStates;
+    private List<GameState> gameStates;
 
 //    @ManyToMany
 //    @JoinTable(name = "game_states",
@@ -43,12 +43,22 @@ public class Game {
 //    @JsonManagedReference
 //    private Set<Player> players;
 
+    @Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj.getClass() != getClass()) return false;
+		return id != null ? id.equals(((Game)obj).id) : false;
+	}
 
     public void setId(UUID id) {
         this.id = id;
     }
-
-    public UUID getId() {
+	public UUID getId() {
         return id;
     }
 
@@ -76,11 +86,11 @@ public class Game {
 		this.endTime = endTime;
 	}
 
-	public Set<GameState> getGameStates() {
+	public List<GameState> getGameStates() {
 		return gameStates;
 	}
 
-	public void setGameStates(Set<GameState> gameStates) {
+	public void setGameStates(List<GameState> gameStates) {
 		this.gameStates = gameStates;
 	}
 

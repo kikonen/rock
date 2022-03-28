@@ -39,6 +39,18 @@ public class Player {
 //    @JsonBackReference	
 //    private Set<Game> games;
 
+    @Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj.getClass() != getClass()) return false;
+		return id != null ? id.equals(((Player)obj).id) : false;
+	}
+
     public void setId(UUID id) {
         this.id = id;
     }

@@ -27,7 +27,6 @@ class NavigatorImpl extends React.Component<Props> {
   }
 
   async eventNavigate(e: any) {
-    console.log("ROUTE", e);
     this.props.navigate(e.route);
   }
 

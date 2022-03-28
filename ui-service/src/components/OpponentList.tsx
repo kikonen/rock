@@ -43,8 +43,6 @@ export class OpponentList extends React.Component<Props, State> {
   async onSelectOpponent(e: any, opponentId: string) {
     e.preventDefault();
 
-    console.log("select opponent: " + opponentId);
-
     Emitter.emit('game.select.opponent', { playerId: opponentId });
   }
 
