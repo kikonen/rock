@@ -40,7 +40,24 @@ scripts/development_up.sh ui
 http://localhost:8111/ui
 ```
 
-# Referneces
+## Production build
+
+```bash
+cd rock
+scripts/production_build.sh
+scripts/production_tag.sh x.y
+scripts/production_push.sh x.y
+```
+
+## Production run
+
+```bash
+cd rock
+BUILD_TAG=x.y scripts/production_up.sh -d ui
+```
+
+
+# References
 
 ## Concept
 - https://en.wikipedia.org/wiki/Rock_paper_scissors
