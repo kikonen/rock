@@ -23,17 +23,17 @@ type State = {
 const RULES = {
   rock: {
     rock: 'draw',
-    paper: 'lose',
+    paper: 'loss',
     scissors: 'win',
   },
   paper: {
     rock: 'win',
     paper: 'draw',
-    scissors: 'lose',
+    scissors: 'loss',
   },
   scissors: {
     rock: 'win',
-    paper: 'lose',
+    paper: 'loss',
     scissors: 'draw',
   },
 }

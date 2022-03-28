@@ -34,7 +34,13 @@ export class GameList extends React.Component<Props, State> {
     console.log("GAMES", rs);
 
     const userId = this.props.userInfo.id;
-    rs = rs.filter((game) => game.gameStates[0].player.id === userId || game.gameStates[1].player.id === userId);
+    rs = rs.filter((game) => {
+      let r = game.gameStates[0].player.id === userId || game.gameStates[1].player.id === userId;
+      if (r) {
+    //    r = !(game.gameStates[0].hand && game.gameStates[1].hand);
+      }
+      return r;
+    });
 
     this.setState((state, props) => ({
       games: rs,

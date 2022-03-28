@@ -34,7 +34,7 @@ export class GameStatePanel extends React.Component<Props, State> {
         },
         {
           id: 'loss',
-          name: 'Lose',
+          name: 'Loss',
           cls: 'btn-danger',
           iconUrl: '/icons/thumbs-down-solid.svg',
         },
