@@ -62,7 +62,7 @@ server {
         proxy_set_header Connection "upgrade";
     }
 
-    location /ui {
+    location ~ ^/ui/?(.*)$ {
         set $upstream_ui ui;
 
         set $docker_env "${DOCKER_ENV}";
