@@ -1,9 +1,5 @@
 import React from 'react';
 
-import {
-  useNavigate,
-} from 'react-router-dom';
-
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
@@ -11,15 +7,10 @@ import { AppContext } from "../AppContext";
 
 
 type Props = {
-  navigate: any
 }
 
 type State = {
   users: Array<any>
-}
-
-function withNavigation(Component: any) {
-  return (props: any) => <Component {...props} navigate={useNavigate()} />;
 }
 
 export class UserList extends React.Component<Props, State> {
@@ -76,5 +67,3 @@ export class UserList extends React.Component<Props, State> {
     );
   }
 }
-
-export default withNavigation(UserList);

@@ -5,8 +5,8 @@ import autobind from "../autobind";
 
 import store from '../store'
 
-import OpponentList from '../components/OpponentList';
-import GameList from '../components/GameList';
+import { OpponentList } from '../components/OpponentList';
+import { GameList } from '../components/GameList';
 
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
@@ -18,7 +18,7 @@ type State = {
   user: any | null,
 }
 
-export class LobbyPageImpl extends React.Component<Props, State> {
+class LobbyPageImpl extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
 

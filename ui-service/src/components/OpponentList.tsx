@@ -1,24 +1,15 @@
 import React from 'react';
 
-import {
-  useNavigate,
-} from 'react-router-dom';
-
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 
 type Props = {
   userId: string,
-  navigate: any
 }
 
 type State = {
   opponents: Array<any>
-}
-
-function withNavigation(Component: any) {
-  return (props: any) => <Component {...props} navigate={useNavigate()} />;
 }
 
 export class OpponentList extends React.Component<Props, State> {
@@ -72,5 +63,3 @@ export class OpponentList extends React.Component<Props, State> {
     );
   }
 }
-
-export default withNavigation(OpponentList);

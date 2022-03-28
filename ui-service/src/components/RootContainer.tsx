@@ -11,6 +11,7 @@ import autobind from "../autobind";
 
 import store from '../store'
 
+import { Navigator } from '../components/Navigator';
 import { HomePage } from '../components/HomePage';
 import { NewPage } from '../components/NewPage';
 import { LobbyPage } from '../components/LobbyPage';
@@ -29,7 +30,6 @@ import {
 
 type Props = {
   dispatch: any,
-  setUser: any,
 }
 
 export class RootContainer extends React.Component<Props> {
@@ -50,18 +50,11 @@ export class RootContainer extends React.Component<Props> {
     const userInfo = await this.fetchPlayer(e.playerId);
     console.log("user", userInfo);
 
-//    const fn = () => { console.log("SET"); setUser(this.state.user); }
-
     this.props.dispatch(setUser(userInfo));
-//    this.props.setUser(userInfo);
 
     console.log(store.getState().user);
-    console.log(store.getState().user.user);
 
-    // this.setState((state, props) => ({
-    //   user: userInfo,
-    // }),
-    // fn);
+    Emitter.emit('game.navigate', { route: '/lobby' });
   }
 
   async eventSelectOpponent(e: any) {
@@ -73,9 +66,11 @@ export class RootContainer extends React.Component<Props> {
     const opponentInfo = await this.fetchPlayer(e.playerId);
     console.log("opponent", opponentInfo);
 
-    this.setState((state, props) => ({
-      opponent: opponentInfo,
-    }));
+    this.props.dispatch(setOpponent(opponentInfo));
+
+    console.log(store.getState().opponent);
+
+    Emitter.emit('game.navigate', { route: '/game' });
   }
 
   async fetchPlayer(playerId: string) {
@@ -88,6 +83,7 @@ export class RootContainer extends React.Component<Props> {
     return (
       <div className="App">
         <Router basename={process.env.PUBLIC_URL}>
+          <Navigator />
           <Routes>
             <Route path='/' element={< HomePage />}></Route>
             <Route path='/new' element={< NewPage />}></Route>

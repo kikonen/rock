@@ -1,23 +1,14 @@
 import React from 'react';
 
-import {
-  useNavigate,
-} from 'react-router-dom';
-
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 
 type Props = {
-  navigate: any
 }
 
 type State = {
   games: Array<any>
-}
-
-function withNavigation(Component: any) {
-  return (props: any) => <Component {...props} navigate={useNavigate()} />;
 }
 
 export class GameList extends React.Component<Props, State> {
@@ -52,8 +43,6 @@ export class GameList extends React.Component<Props, State> {
     console.log(this.props);
 
     Emitter.emit('game.select.game', { gameId: gameId });
-
-    this.props.navigate('/game');
   }
 
   render() {
@@ -71,5 +60,3 @@ export class GameList extends React.Component<Props, State> {
     );
   }
 }
-
-export default withNavigation(GameList);
