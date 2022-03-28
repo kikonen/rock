@@ -33,10 +33,19 @@ export class GamePage extends React.Component<Props> {
         <Header />
         <h1>Rock to victory</h1>
 
-        <TokenPanel playerId={this.context.userId} />
+        <div className="d-flex">
+          <div>
+            <TokenPanel playerInfo={this.context.userInfo} />
+          </div>
 
-        <GameStatePanel />
-        <TokenPanel playerId={this.context.opponentId} />
+          <div>
+            <GameStatePanel />
+          </div>
+
+          <div>
+            <TokenPanel playerInfo={this.context.opponentInfo} />
+          </div>
+        </div>
 
         <Footer />
       </div>

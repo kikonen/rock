@@ -58,7 +58,7 @@ export class OpponentList extends React.Component<Props, State> {
 
     console.log("select opponent: " + opponentId);
 
-    Emitter.emit('game.select.opponent', { opponentId: opponentId });
+    Emitter.emit('game.select.opponent', { playerId: opponentId });
 
     this.props.navigate('/game');
   }

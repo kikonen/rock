@@ -1,11 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import {
-  Link
-} from 'react-router-dom';
-
-import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 interface Props {

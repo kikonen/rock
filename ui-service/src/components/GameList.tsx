@@ -1,15 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
 
 import {
-  Link,
   useNavigate,
 } from 'react-router-dom';
 
 import Emitter from '../Emitter';
 import autobind from "../autobind";
-
-import Game from '../models/Game';
 
 
 interface Props {
@@ -54,6 +50,9 @@ export class GameList extends React.Component<Props, State> {
 
     console.log("select game: " + gameId);
     console.log(this.props);
+
+    Emitter.emit('game.select.game', { gameId: gameId });
+
     this.props.navigate('/game');
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux'
 
 import {
   BrowserRouter as Router,
@@ -10,6 +11,7 @@ import './App.css';
 
 import Emitter from './Emitter';
 import autobind from './autobind'
+import store from './store'
 
 import {AppContext} from "./AppContext";
 
@@ -21,10 +23,10 @@ import { StatisticsPage } from './components/StatisticsPage';
 import { AboutPage } from './components/AboutPage';
 
 type AppState = {
-  userId?: string,
+  userId: string | null,
   userInfo: any,
 
-  opponentId?: string,
+  opponentId: string | null,
   opponentInfo: any,
 };
 
@@ -52,6 +54,7 @@ class App extends React.Component<{}, AppState> {
     console.log(e);
 
     const userInfo = await this.fetchPlayer(e.playerId);
+    console.log("user", userInfo);
 
     this.setState((state, props) => ({
       userId: e.playerId,
@@ -66,6 +69,7 @@ class App extends React.Component<{}, AppState> {
     // activate "game"
 
     const opponentInfo = await this.fetchPlayer(e.playerId);
+    console.log("opponent", opponentInfo);
 
     this.setState((state, props) => ({
       opponentId: e.playerId,
@@ -81,7 +85,7 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <AppContext.Provider value={ this.state }>
+      //<Provider context={AppContext} store={store}>
         <div className="App">
           <Router basename={process.env.PUBLIC_URL}>
             <Routes>
@@ -93,8 +97,8 @@ class App extends React.Component<{}, AppState> {
               <Route path='/about' element={< AboutPage />}></Route>
             </Routes>
           </Router>
-       </div>
-     </AppContext.Provider>
+        </div>
+      //</Provider>
     );
   }
 }

@@ -10,9 +10,6 @@ interface State {
   players: Array<any>
 }
 
-function withNavigation(Component: any) {
-  return (props: any) => <Component {...props} navigate={useNavigate()} />;
-}
 
 export class StatisticsList extends React.Component<Props, State> {
   constructor(props: any) {

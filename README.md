@@ -48,6 +48,7 @@ http://localhost:8111/ui
 
 ## Typescript
 - https://www.typescriptlang.org/docs/handbook/classes.html
+- https://www.educba.com/typescript-type-vs-interface/
 
 ## React
 - https://create-react-app.dev/docs/getting-started/
