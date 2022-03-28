@@ -27,6 +27,10 @@ import {
   setOpponent,
 } from '../opponentReducer';
 
+import {
+  setGame,
+} from '../gameReducer';
+
 
 type Props = {
   dispatch: any,
@@ -83,14 +87,14 @@ export class RootContainer extends React.Component<Props> {
   async eventSelectGame(e: any) {
     console.log(e);
 
-    const gameInfo = await this.fetchGame(e.gameId);
-    console.log("game", gameInfo);
+    const game = await this.fetchGame(e.gameId);
+    console.log("game", game);
 
     let user = store.getState().user?.user;
     let opponent = store.getState().opponent?.opponent;
 
-    const player1 = gameInfo.gameStates[0].player;
-    const player2 = gameInfo.gameStates[1].player;
+    const player1 = game.gameStates[0].player;
+    const player2 = game.gameStates[1].player;
 
     if (player1.id === user.id) {
       user = player1;
@@ -102,9 +106,13 @@ export class RootContainer extends React.Component<Props> {
 
     this.props.dispatch(setUser(user));
     this.props.dispatch(setOpponent(opponent));
+    this.props.dispatch(setGame(game));
+
+    console.log("store", store.getState());
 
     console.log("store-user", store.getState().user);
     console.log("store-opponent", store.getState().opponent);
+    console.log("store-game", store.getState().game);
 
     Emitter.emit('game.navigate', { route: '/game' });
   }

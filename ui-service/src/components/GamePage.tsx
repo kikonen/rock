@@ -15,6 +15,7 @@ type Props = {
 }
 
 type State = {
+  game: any | null,
   user: any | null,
   opponent: any | null,
 }
@@ -25,6 +26,7 @@ export class GamePage extends React.Component<Props, State> {
     super(props);
 
     this.state = {
+      game: store.getState().game?.game,
       user: store.getState().user?.user ,
       opponent: store.getState().opponent?.opponent,
     };
@@ -55,10 +57,18 @@ export class GamePage extends React.Component<Props, State> {
   }
 
   render() {
+    let gameTitle = 'N/A';
+    let game = this.state.game;
+    if (game) {
+      gameTitle = `${game.gameStates[0].player.name} vs. ${game.gameStates[1].player.name}`
+    }
+
     return (
       <div>
         <Header />
         <h1>Rock to victory</h1>
+
+        <h2>{gameTitle}</h2>
 
         <div className="d-flex justify-content-center">
           <div>

@@ -45,7 +45,6 @@ export class GameList extends React.Component<Props, State> {
     e.preventDefault();
 
     console.log("select game: " + gameId);
-    console.log(this.props);
 
     Emitter.emit('game.select.game', { gameId: gameId });
   }
