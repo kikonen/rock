@@ -52,7 +52,7 @@ export class RootContainer extends React.Component<Props> {
 
     this.props.dispatch(setUser(userInfo));
 
-    console.log(store.getState().user);
+    console.log("store-user", store.getState().user);
 
     Emitter.emit('game.navigate', { route: '/lobby' });
   }
@@ -68,7 +68,7 @@ export class RootContainer extends React.Component<Props> {
 
     this.props.dispatch(setOpponent(opponentInfo));
 
-    console.log(store.getState().opponent);
+    console.log("store-opponent", store.getState().opponent);
 
     Emitter.emit('game.navigate', { route: '/game' });
   }

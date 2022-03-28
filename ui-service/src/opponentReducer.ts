@@ -7,7 +7,8 @@ export const opponentSlice = createSlice({
   },
   reducers: {
     setOpponent: (state, opponent: any) => {
-      state.opponent = opponent;
+      console.log("reduce-payload", opponent.payload);
+      state.opponent = opponent.payload;
     },
   },
 })

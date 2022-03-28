@@ -3,6 +3,8 @@ import React from 'react';
 import Emitter from '../Emitter';
 import autobind from "../autobind";
 
+import store from '../store'
+
 import { TokenPanel } from '../components/TokenPanel';
 import { GameStatePanel } from '../components/GameStatePanel';
 
@@ -12,9 +14,24 @@ import { Footer } from '../components/Footer';
 type Props = {
 }
 
-export class GamePage extends React.Component<Props> {
+type State = {
+  user: any | null,
+  opponent: any | null,
+}
+
+
+export class GamePage extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
+
+    const user = store.getState().user?.user || { name: 'N/A' }
+    const opponent = store.getState().opponent?.opponent || { name: 'N/A' }
+
+    this.state = {
+      user: user,
+      opponent: opponent,
+    };
+    console.log("GAME", this.state);
 
     autobind(this);
   }
@@ -35,7 +52,7 @@ export class GamePage extends React.Component<Props> {
 
         <div className="d-flex">
           <div>
-            <TokenPanel playerInfo={this.context.userInfo} />
+            <TokenPanel playerInfo={this.state.user} />
           </div>
 
           <div>
@@ -43,7 +60,7 @@ export class GamePage extends React.Component<Props> {
           </div>
 
           <div>
-            <TokenPanel playerInfo={this.context.opponentInfo} />
+            <TokenPanel playerInfo={this.state.opponent} />
           </div>
         </div>
 
