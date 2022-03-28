@@ -6,7 +6,7 @@ import { StatisticsList } from '../components/StatisticsList';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
-interface Props {
+type Props = {
 }
 
 export class StatisticsPage extends React.Component<Props> {

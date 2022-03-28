@@ -4,10 +4,10 @@ import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 
-interface Props {
+type Props = {
 }
 
-interface State {
+type State = {
   tokens: Array<any>
 }
 

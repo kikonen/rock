@@ -10,11 +10,11 @@ import autobind from "../autobind";
 import { AppContext } from "../AppContext";
 
 
-interface Props {
+type Props = {
   navigate: any
 }
 
-interface State {
+type State = {
   opponents: Array<any>
 }
 

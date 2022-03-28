@@ -6,7 +6,7 @@ import {
 
 import autobind from "../autobind";
 
-interface Props {
+type Props = {
 }
 
 export class HomePage extends React.Component<Props> {
@@ -21,14 +21,16 @@ export class HomePage extends React.Component<Props> {
       <div>
         <h1>Rock</h1>
 
-        <ul>
-          <li>
-            <Link to={`/new`}>New Rocker</Link>
+        <ul className="list-group list-group-vertical">
+          <li className="list-group-item">
+            <Link to={`/new`}>Select Rocker</Link>
           </li>
-          <li>
+
+          <li className="list-group-item">
             <Link to={`/statistics`}>Rock of fame</Link>
           </li>
-          <li>
+
+          <li className="list-group-item">
             <Link to={`/about`}>About Rock</Link>
           </li>
         </ul>

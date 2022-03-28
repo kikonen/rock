@@ -9,7 +9,7 @@ import { GameStatePanel } from '../components/GameStatePanel';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
-interface Props {
+type Props = {
 }
 
 export class GamePage extends React.Component<Props> {

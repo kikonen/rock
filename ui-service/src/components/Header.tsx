@@ -2,7 +2,7 @@ import React from 'react';
 
 import autobind from "../autobind";
 
-interface Props {
+type Props = {
 }
 
 export class Header extends React.Component<Props> {

@@ -62,6 +62,9 @@ http://localhost:8111/ui
 - https://github.com/remix-run/react-router/issues/8146
 - https://reactjs.org/docs/context.html#reactcreatecontext
 - https://www.freecodecamp.org/news/react-context-for-beginners/
+- https://medium.com/@rrohit.maheshwari/react-app-using-redux-e6a1a69822d1
+- https://stackoverflow.com/questions/41892553/could-not-find-store-in-either-the-context-or-props-of-connectapp
+- https://www.johnraptis.dev/using-redux-with-classes-and-hooks/
 
 ## Rails
 - https://guides.rubyonrails.org/active_record_migrations.html

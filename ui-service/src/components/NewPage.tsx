@@ -7,7 +7,7 @@ import { Footer } from '../components/Footer';
 
 import UserList from '../components/UserList';
 
-interface Props {
+type Props = {
 }
 
 export class NewPage extends React.Component<Props> {
@@ -21,7 +21,7 @@ export class NewPage extends React.Component<Props> {
     return (
       <div>
         <Header />
-        <h1>Start your rocking journey</h1>
+        <h1>Select Rocker</h1>
 
         <UserList />
 

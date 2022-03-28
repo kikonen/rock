@@ -5,7 +5,7 @@ import autobind from "../autobind";
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
-interface Props {
+type Props = {
 }
 
 export class AboutPage extends React.Component<Props> {

@@ -6,7 +6,7 @@ import {
 
 import autobind from "../autobind";
 
-interface Props {
+type Props = {
 }
 
 export class Footer extends React.Component<Props> {
@@ -21,13 +21,10 @@ export class Footer extends React.Component<Props> {
       <footer className="fixed-bottom">
         <ul className="list-group list-group-horizontal">
           <li className="list-group-item">
-            <Link to={`/new`}>New Rocker</Link>
+            <Link to={`/new`}>Select Rocker</Link>
           </li>
           <li className="list-group-item">
-            <Link to="/lobby">Match Rocker</Link>
-          </li>
-          <li className="list-group-item">
-            <Link to={'/game'}>Throw rock</Link>
+            <Link to="/lobby">Select opponent</Link>
           </li>
           <li className="list-group-item">
             <Link to={`/statistics`}>Rock of fame</Link>

@@ -1,5 +1,10 @@
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './userReducer'
+import opponentReducer from './opponentReducer'
 
-
-const store = {};
-
-export default store;
+export default configureStore({
+  reducer: {
+    user: userReducer,
+    opponent: opponentReducer,
+  },
+})

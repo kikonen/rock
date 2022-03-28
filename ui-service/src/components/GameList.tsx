@@ -8,11 +8,11 @@ import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 
-interface Props {
+type Props = {
   navigate: any
 }
 
-interface State {
+type State = {
   games: Array<any>
 }
 

@@ -1,11 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
+import { connect } from "react-redux";
 
 import './App.css';
 
@@ -15,31 +10,43 @@ import store from './store'
 
 import {AppContext} from "./AppContext";
 
-import { HomePage } from './components/HomePage';
-import { NewPage } from './components/NewPage';
-import { LobbyPage } from './components/LobbyPage';
-import { GamePage } from './components/GamePage';
-import { StatisticsPage } from './components/StatisticsPage';
-import { AboutPage } from './components/AboutPage';
+import { RootContainer } from './components/RootContainer';
 
-type AppState = {
-  userId: string | null,
-  userInfo: any,
+import {
+  setUser,
+} from './userReducer';
 
-  opponentId: string | null,
-  opponentInfo: any,
+import {
+  setOpponent,
+} from './opponentReducer';
+
+type AppProps = {
+  setUser?: any,
+  setOpponent?: any,
 };
 
+type AppState = {
+  user: any | null,
+  opponent: any | null,
+};
 
-class App extends React.Component<{}, AppState> {
+function mapStateToProps(state: any) {
+  return {
+    user: state.user,
+    opponent: state.opponent,
+  };
+}
+
+//export default App;
+const ConnectedRoot = connect(mapStateToProps, { setUser, setOpponent })(RootContainer);
+
+export default class App extends React.Component<AppProps, AppState> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      userId: null,
-      userInfo: { id: null, name: 'N/A' },
-      opponentId: null,
-      opponentInfo: { id: null, name: 'N/A' },
+      user: null,
+      opponent: null,
     };
 
     autobind(this);
@@ -56,10 +63,12 @@ class App extends React.Component<{}, AppState> {
     const userInfo = await this.fetchPlayer(e.playerId);
     console.log("user", userInfo);
 
+    const fn = () => { console.log("SET"); setUser(this.state.user); }
+
     this.setState((state, props) => ({
-      userId: e.playerId,
-      userInfo: userInfo,
-    }));
+      user: userInfo,
+    }),
+    fn);
   }
 
   async eventSelectOpponent(e: any) {
@@ -72,8 +81,7 @@ class App extends React.Component<{}, AppState> {
     console.log("opponent", opponentInfo);
 
     this.setState((state, props) => ({
-      opponentId: e.playerId,
-      opponentInfo: opponentInfo,
+      opponent: opponentInfo,
     }));
   }
 
@@ -85,22 +93,9 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      //<Provider context={AppContext} store={store}>
-        <div className="App">
-          <Router basename={process.env.PUBLIC_URL}>
-            <Routes>
-              <Route path='/' element={< HomePage />}></Route>
-              <Route path='/new' element={< NewPage />}></Route>
-              <Route path='/lobby' element={< LobbyPage />}></Route>
-              <Route path='/game' element={< GamePage />}></Route>
-              <Route path='/statistics' element={< StatisticsPage />}></Route>
-              <Route path='/about' element={< AboutPage />}></Route>
-            </Routes>
-          </Router>
-        </div>
-      //</Provider>
+      <Provider store={store}>
+        <ConnectedRoot />
+      </Provider>
     );
   }
 }
-
-export default App;

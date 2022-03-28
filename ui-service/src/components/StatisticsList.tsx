@@ -3,10 +3,10 @@ import React from 'react';
 import autobind from "../autobind";
 
 
-interface Props {
+type Props = {
 }
 
-interface State {
+type State = {
   players: Array<any>
 }
 

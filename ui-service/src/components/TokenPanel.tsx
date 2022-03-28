@@ -4,11 +4,11 @@ import Emitter from '../Emitter';
 import autobind from "../autobind";
 
 
-interface Props {
+type Props = {
   playerInfo: any | null
 }
 
-interface State {
+type State = {
   tokens: Array<any>
 }
 
