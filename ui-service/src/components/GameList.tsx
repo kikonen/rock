@@ -35,7 +35,8 @@ export class GameList extends React.Component<Props, State> {
     rs = rs.filter((game) => {
       let r = game.gameStates[0].player.id === userId || game.gameStates[1].player.id === userId;
       if (r) {
-    //    r = !(game.gameStates[0].hand && game.gameStates[1].hand);
+        // NOTE KI ignore completed games
+        r = !(game.gameStates[0].hand && game.gameStates[1].hand);
       }
       return r;
     });

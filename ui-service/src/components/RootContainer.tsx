@@ -68,7 +68,7 @@ export class RootContainer extends React.Component<Props> {
     const user = store.getState().user.user;
     const opponent = await this.fetchPlayer(e.playerId);
 
-    this.createNewGame({ user, opponent });
+    this.startGame({ user, opponent });
   }
 
   async eventSelectGame(e: any) {
@@ -112,7 +112,33 @@ export class RootContainer extends React.Component<Props> {
     return response.json();
   }
 
-  async createNewGame(gameInfo: any) {
+  async fetchPendingGames(gameInfo: any) {
+    const userId = gameInfo.user.id;
+    const opponentId = gameInfo.opponent.id;
+    const response = await fetch(`../api/games`);
+    const games = await response.json();
+
+    return games.filter((game) => {
+      let state1 = game.gameStates[0];
+      let state2 = game.gameStates[1];
+
+      let r = !(state1.hand && state2.hand);
+      if (r) {
+        r = (state1.player.id === userId && state2.player.id === opponentId)
+          || (state2.player.id === userId && state1.player.id === opponentId);
+      }
+      return r;
+    });
+  }
+
+  async startGame(gameInfo: any) {
+    const pendingGames = this.fetchPendingGames(gameInfo);
+
+    if (pendingGames.length > 0) {
+      Emitter.emit('game.select.game', { gameId: pendingGames[0].id });
+      return;
+    }
+
     let data = {
       status: 'pending',
       gameStates: [
