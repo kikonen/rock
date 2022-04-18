@@ -3,7 +3,7 @@ services:
     env_file:
       - .env
       - .production_env
-    restart: always
+    restart: unless-stopped
 
   api:
     image: ${DOCKER_REGISTRY_URL}/rock_build_api:${BUILD_TAG}
@@ -12,7 +12,7 @@ services:
       - .production_env
     environment:
       CONTAINER_VERSION: ${BUILD_TAG}
-    restart: always
+    restart: unless-stopped
 
   ui:
     image: ${DOCKER_REGISTRY_URL}/rock_build_ui:${BUILD_TAG}
@@ -21,7 +21,7 @@ services:
       - .production_env
     environment:
       CONTAINER_VERSION: ${BUILD_TAG}
-    restart: always
+    restart: unless-stopped
 
   schema:
     image: ${DOCKER_REGISTRY_URL}/rock_build_schema:${BUILD_TAG}
@@ -41,7 +41,7 @@ services:
     secrets:
       - POSTGRES_PASSWORD
       - POSTGRES_USER
-    restart: always
+    restart: unless-stopped
 
   adminer:
     env_file:
